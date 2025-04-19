@@ -10,11 +10,9 @@ concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 jobs:
   release:
-    name: Release
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repo
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
       - name: Setup Node.js 20.x (with pnpm cache)
         uses: actions/setup-node@v4
@@ -22,11 +20,15 @@ jobs:
           node-version: 20
           cache: "pnpm"
 
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8.15.6
+
       - name: Install Dependencies with pnpm
         run: pnpm install --frozen-lockfile
 
-      - name: Create Release Pull Request or Publish to npm
-        id: changesets
+      - id: changesets
         uses: changesets/action@v1
         with:
           publish: pnpm run release
@@ -34,6 +36,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      - name: Send a Slack notification if a publish happens
+      - name: Send Slack notification if published
         if: steps.changesets.outputs.published == 'true'
-        run: my-slack-bot send-notification --message "A new version of ${GITHUB_REPOSITORY} was published!"
+        run: my‑slack‑bot send-notification \
+          --message "A new version of ${GITHUB_REPOSITORY} was published!"
