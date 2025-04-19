@@ -28,10 +28,18 @@ jobs:
       - name: Debug pnpm Path
         run: |
           echo "Checking pnpm version:"
-          pnpm --version
+          pnpm --version || echo "pnpm is not installed"
           echo "Checking PATH variable:"
           echo $PATH
         shell: bash
+
+      # Manually ensure pnpm installation if needed
+      - name: Ensure pnpm Installation
+        if: failure() # Only runs if the previous step fails
+        run: |
+          echo "Installing pnpm manually..."
+          npm install -g pnpm@8.15.6
+          pnpm --version
 
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
