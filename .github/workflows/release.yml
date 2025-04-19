@@ -24,9 +24,14 @@ jobs:
         with:
           version: 8.15.6
 
-      # Add a step to verify pnpm installation
-      - name: Verify pnpm Installation
-        run: pnpm --version
+      # Add a debugging step to verify pnpm installation
+      - name: Debug pnpm Path
+        run: |
+          echo "Checking pnpm version:"
+          pnpm --version
+          echo "Checking PATH variable:"
+          echo $PATH
+        shell: bash
 
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
