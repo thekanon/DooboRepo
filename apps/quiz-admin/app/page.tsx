@@ -51,12 +51,7 @@ export default function Home() {
             Read our docs
           </a>
         </div>
-        <Button
-
-          children="Click me"
-
-        />
-
+        <Button>{`Click me`}</Button>
       </main>
       <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
         <a
