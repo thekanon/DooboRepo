@@ -24,6 +24,10 @@ jobs:
         with:
           version: 8.15.6
 
+      # Add a step to verify pnpm installation
+      - name: Verify pnpm Installation
+        run: pnpm --version
+
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
 
