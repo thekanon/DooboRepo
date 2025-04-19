@@ -15,46 +15,35 @@ jobs:
       # 1. 코드 체크아웃
       - name: Checkout repo
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-      # 2. Node.js 설치 및 pnpm 캐시 설정
-      - name: Setup Node.js 20.x (with pnpm cache)
+      # 2. pnpm 설치 (최신 v4 버전 사용)
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 8.15.6
+          run_install: false
+
+      # 3. Node.js 설치 및 pnpm 캐싱
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: "pnpm"
 
-      # 3. pnpm CLI 설치 (pnpm/action-setup 사용)
-      - name: Setup pnpm CLI
-        uses: pnpm/action-setup@v2
-        with:
-          version: 8.15.6
-
-      # 4. 디버그: pnpm 바이너리 위치 & PATH 확인, 출력값으로 저장
-      - name: Debug pnpm Path
-        id: debug
-        run: |
-          # pnpm 바이너리 실제 위치 확인
-          PNPM_PATH=$(which pnpm 2>/dev/null || echo "")
-          echo "::set-output name=pnpm-path::$PNPM_PATH"
-
-          echo "→ pnpm-path: $PNPM_PATH"
-          # PATH 전체 출력
-          echo "→ PATH:"
-          echo $PATH | tr ':' '\n'
-        shell: bash
-
-      # 5. 설치 확인
+      # 4. 설치 확인
       - name: Verify pnpm
         run: |
           echo "pnpm version -> $(pnpm --version)"
         shell: bash
 
-      # 6. 의존성 설치
+      # 5. 의존성 설치
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
         shell: bash
 
-      # 7. Changesets 릴리즈 / 퍼블리시
+      # 6. Changesets 릴리즈 / 퍼블리시
       - name: Create Release PR or Publish
         id: changesets
         uses: changesets/action@v1
@@ -64,10 +53,12 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      # 8. Slack 알림 (퍼블리시가 실제로 일어났을 때만)
+      # 7. Slack 알림 (퍼블리시가 실제로 일어났을 때만)
       - name: Send Slack notification if published
         if: steps.changesets.outputs.published == 'true'
-        run: |
-          my-slack-bot send-notification \
-            --message "A new version of ${GITHUB_REPOSITORY} was published!"
-        shell: bash
+        uses: slackapi/slack-github-action@v1.23.0
+        with:
+          payload: |
+            {"text": "A new version of ${{ github.repository }} was published!"}
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
