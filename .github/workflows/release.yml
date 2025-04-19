@@ -2,7 +2,8 @@ name: Release
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
   workflow_dispatch:
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
@@ -11,40 +12,59 @@ jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      # 1. 코드 체크아웃
+      - name: Checkout repo
+        uses: actions/checkout@v4
 
+      # 2. Node.js 설치 및 pnpm 캐시 설정
       - name: Setup Node.js 20.x (with pnpm cache)
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: "pnpm"
 
-      - name: Setup pnpm ➜ Install CLI
+      # 3. pnpm CLI 설치 (pnpm/action-setup 사용)
+      - name: Setup pnpm CLI
         uses: pnpm/action-setup@v2
         with:
           version: 8.15.6
 
-      # Add a debugging step to verify pnpm installation
+      # 4. 디버그: pnpm 바이너리 위치 & PATH 확인, 출력값으로 저장
       - name: Debug pnpm Path
+        id: debug
         run: |
-          echo "Checking pnpm version:"
-          pnpm --version || echo "pnpm is not installed"
-          echo "Checking PATH variable:"
-          echo $PATH
+          # pnpm 바이너리 실제 위치 확인
+          PNPM_PATH=$(which pnpm 2>/dev/null || echo "")
+          echo "::set-output name=pnpm-path::$PNPM_PATH"
+
+          echo "→ pnpm-path: $PNPM_PATH"
+          # PATH 전체 출력
+          echo "→ PATH:"
+          echo $PATH | tr ':' '\n'
         shell: bash
 
-      # Manually ensure pnpm installation if needed
-      - name: Ensure pnpm Installation
-        if: failure() # Only runs if the previous step fails
+      # 5. (선택) pnpm이 없다면 npm으로 글로벌 설치
+      - name: Fallback: install pnpm via npm
+        if: steps.debug.outputs.pnpm-path == ''
         run: |
-          echo "Installing pnpm manually..."
+          echo "pnpm not found in PATH, installing via npm..."
           npm install -g pnpm@8.15.6
-          pnpm --version
+        shell: bash
 
-      - name: Install Dependencies
+      # 6. 설치 확인
+      - name: Verify pnpm
+        run: |
+          echo "pnpm version -> $(pnpm --version)"
+        shell: bash
+
+      # 7. 의존성 설치
+      - name: Install dependencies
         run: pnpm install --frozen-lockfile
+        shell: bash
 
-      - id: changesets
+      # 8. Changesets 릴리즈 / 퍼블리시
+      - name: Create Release PR or Publish
+        id: changesets
         uses: changesets/action@v1
         with:
           publish: pnpm run release
@@ -52,7 +72,10 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
+      # 9. Slack 알림 (퍼블리시가 실제로 일어났을 때만)
       - name: Send Slack notification if published
         if: steps.changesets.outputs.published == 'true'
-        run: my‑slack‑bot send-notification \
-          --message "A new version of ${GITHUB_REPOSITORY} was published!"
+        run: |
+          my-slack-bot send-notification \
+            --message "A new version of ${GITHUB_REPOSITORY} was published!"
+        shell: bash
