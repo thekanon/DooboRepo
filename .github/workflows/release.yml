@@ -1,13 +1,23 @@
 name: Release
-
 on:
   push:
     branches:
-      - main
-  workflow_dispatch:
+      - main # 운영환경
+      - develop # 개발환경
+      - "release/**" # 릴리스 환경
+  workflow_dispatch: # 수동 실행
+    inputs:
+      branch:
+        description: "릴리스 대상 브랜치"
+        required: false
+        default: "main"
 
-concurrency: ${{ github.workflow }}-${{ github.ref }}
+# 동시 실행 방지 및 이전 실행 취소
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
+# 저장소 내용 쓰기 권한 부여
 permissions:
   contents: write
 
@@ -15,55 +25,67 @@ jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-      - name: Setup npm auth
-        run: |
-          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
-        shell: bash
-
-      # 1. 코드 체크아웃
-      - name: Checkout repo
+      # 1. 저장소 체크아웃
+      - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          fetch-depth: 0 # 전체 커밋 이력 가져오기
 
-      # 2. pnpm 설치 (최신 v4 버전 사용)
-      - name: Install pnpm
+      # 2. pnpm 설정
+      - name: Setup pnpm
         uses: pnpm/action-setup@v4
         with:
           version: 8.15.6
-          run_install: false
 
-      # 3. Node.js 설치 및 pnpm 캐싱
+      # 3. Node.js 설정 (캐싱 포함)
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: "pnpm"
 
-      # 4. 설치 확인
-      - name: Verify pnpm
-        run: |
-          echo "pnpm version -> $(pnpm --version)"
-        shell: bash
-
-      # 5. 의존성 설치
+      # 4. 의존성 설치
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
         shell: bash
 
-      # 6. 빌드만 실행 (배포하지 않음)
-      - name: Run build
+      # 5. 프로젝트 빌드
+      - name: Build project
         run: pnpm run build
         shell: bash
 
-      # 7. GitHub Release 태그만 생성 (선택사항)
-      - name: Create GitHub Release
+      # 6. feature 브랜치에서 develop으로 자동 PR 생성
+      - name: Create PR to develop from feature branch
+        if: startsWith(github.ref, 'refs/heads/feature/')
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "chore: Auto PR from ${{ github.ref_name }}"
+          branch: "auto/pr/${{ github.ref_name }}"
+          title: "Auto PR: ${{ github.ref_name }} → develop"
+          body: "이 PR은 GitHub Actions에 의해 자동 생성되었습니다."
+          base: "develop"
+
+      # 7. main 브랜치일 경우 릴리스 브랜치 생성
+      - name: Create release branch from main
         if: github.ref == 'refs/heads/main'
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: peter-evans/create-branch@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: release/${{ github.run_number }}
+          source: main
+
+      # 8. GitHub 릴리스 생성
+      - name: Create GitHub Release
+        if: |
+          github.event_name == 'workflow_dispatch' ||
+          github.ref == 'refs/heads/main' ||
+          startsWith(github.ref, 'refs/heads/release/')
+        uses: softprops/action-gh-release@v1
         with:
           tag_name: v${{ github.run_number }}
-          release_name: Release ${{ github.run_number }}
+          name: ${{ github.ref == 'refs/heads/main' && 'Release' || 'Pre-release' }} ${{ github.run_number }}
           draft: false
-          prerelease: false
+          prerelease: ${{ github.ref != 'refs/heads/main' }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
