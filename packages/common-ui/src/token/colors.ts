@@ -1,5 +1,7 @@
-// packages/common-ui/src/tokens/colors.js
-module.exports = {
+// packages/common-ui/src/token/colors.ts
+import type { Colors } from "./types";
+
+const colors: Colors = {
   // 기본 색상
   primary: {
     50: "#e6f7ff",
@@ -65,3 +67,4 @@ module.exports = {
     highlight: "#ecfdf5",
   },
 };
+export default colors;

@@ -1,5 +1,5 @@
 // packages/common-ui/src/tokens/typography.js
-module.exports = {
+const typography = {
   fontFamily: {
     sans: ["Inter", "system-ui", "sans-serif"],
     mono: ["JetBrains Mono", "monospace"],
@@ -41,3 +41,5 @@ module.exports = {
     widest: "0.1em",
   },
 };
+
+export default typography;

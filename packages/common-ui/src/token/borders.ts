@@ -1,5 +1,5 @@
 // packages/common-ui/src/tokens/borders.js
-module.exports = {
+export const borders = {
   radius: {
     none: "0px",
     sm: "0.125rem", // 2px
@@ -26,3 +26,5 @@ module.exports = {
     none: "none",
   },
 };
+
+export default borders;

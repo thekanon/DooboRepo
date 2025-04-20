@@ -1,9 +1,12 @@
 import { defineConfig } from "tsup";
+import { sassPlugin } from "esbuild-sass-plugin";
+import cssModulesPlugin from "esbuild-css-modules-plugin";
 
-export default defineConfig((options) => ({
-  entryPoints: ["src/button.tsx"],
-  format: ["cjs", "esm"],
+export default defineConfig({
+  entry: ["src/index.ts"],
+  format: ["esm", "cjs"],
   dts: true,
-  external: ["react"],
-  ...options,
-}));
+  sourcemap: true,
+  clean: true,
+  esbuildPlugins: [sassPlugin({ type: "css" }), cssModulesPlugin()],
+});

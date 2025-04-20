@@ -1,5 +1,5 @@
 // packages/common-ui/src/tokens/spacing.js
-module.exports = {
+const spacing = {
   0: "0px",
   0.5: "0.125rem", // 2px
   1: "0.25rem", // 4px
@@ -35,3 +35,5 @@ module.exports = {
   80: "20rem", // 320px
   96: "24rem", // 384px
 };
+
+export default spacing;

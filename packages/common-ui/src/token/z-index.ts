@@ -1,5 +1,5 @@
 // packages/common-ui/src/tokens/z-index.js
-module.exports = {
+const zIndex = {
   hide: -1,
   auto: "auto",
   base: 0,
@@ -14,3 +14,5 @@ module.exports = {
   toast: 1700,
   tooltip: 1800,
 };
+
+export default zIndex;
