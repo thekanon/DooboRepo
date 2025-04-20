@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Button } from "@common-ui/ui/button";
+import { Button } from "@doo/common-ui/button";
 
 export default function Home() {
   return (
