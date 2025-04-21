@@ -1,0 +1,104 @@
+@use "../../scss/variables";
+@use "../../scss/mixins";
+
+.paragraph {
+  margin: 0;
+  font-family: variables.$font-family-sans;
+
+  &.gutterBottom {
+    margin-bottom: variables.$spacing-4;
+  }
+}
+
+// 크기 변형
+.size-xs {
+  font-size: variables.$font-size-xs;
+}
+
+.size-sm {
+  font-size: variables.$font-size-sm;
+}
+
+.size-base {
+  font-size: variables.$font-size-base;
+}
+
+.size-lg {
+  font-size: variables.$font-size-lg;
+}
+
+.size-xl {
+  font-size: variables.$font-size-xl;
+}
+
+// 폰트 굵기 변형
+.weight-light {
+  font-weight: variables.$font-weight-light;
+}
+
+.weight-normal {
+  font-weight: variables.$font-weight-normal;
+}
+
+.weight-medium {
+  font-weight: variables.$font-weight-medium;
+}
+
+.weight-semibold {
+  font-weight: variables.$font-weight-semibold;
+}
+
+.weight-bold {
+  font-weight: variables.$font-weight-bold;
+}
+
+// 줄 간격 변형
+.line-height-tight {
+  line-height: variables.$line-height-tight;
+}
+
+.line-height-normal {
+  line-height: variables.$line-height-normal;
+}
+
+.line-height-relaxed {
+  line-height: variables.$line-height-relaxed;
+}
+
+.line-height-loose {
+  line-height: variables.$line-height-loose;
+}
+
+// 정렬 변형
+.align-left {
+  text-align: left;
+}
+
+.align-center {
+  text-align: center;
+}
+
+.align-right {
+  text-align: right;
+}
+
+.align-justify {
+  text-align: justify;
+}
+
+// 색상 변형
+.color-default {
+  color: variables.$color-neutral-800;
+}
+
+.color-primary {
+  color: variables.$color-primary-700;
+}
+
+.color-secondary {
+  color: variables.$color-neutral-600;
+}
+
+.color-muted {
+  color: variables.$color-neutral-500;
+}

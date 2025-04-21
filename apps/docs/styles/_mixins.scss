@@ -1,0 +1,230 @@
+@use "sass:color";
+@use "./_variables" as *;
+
+// packages/common-ui/src/scss/_mixins.scss
+
+// 반응형 미디어 쿼리 믹스인
+@mixin respond-to($breakpoint) {
+  @if $breakpoint == xs {
+    @media (min-width: $breakpoint-xs) {
+      @content;
+    }
+  } @else if $breakpoint == sm {
+    @media (min-width: $breakpoint-sm) {
+      @content;
+    }
+  } @else if $breakpoint == md {
+    @media (min-width: $breakpoint-md) {
+      @content;
+    }
+  } @else if $breakpoint == lg {
+    @media (min-width: $breakpoint-lg) {
+      @content;
+    }
+  } @else if $breakpoint == xl {
+    @media (min-width: $breakpoint-xl) {
+      @content;
+    }
+  } @else if $breakpoint == 2xl {
+    @media (min-width: $breakpoint-2xl) {
+      @content;
+    }
+  }
+}
+
+// 타이포그래피 믹스인
+@mixin typography($size, $weight: normal, $line-height: normal) {
+  @if $size == xs {
+    font-size: $font-size-xs;
+  } @else if $size == sm {
+    font-size: $font-size-sm;
+  } @else if $size == base {
+    font-size: $font-size-base;
+  } @else if $size == lg {
+    font-size: $font-size-lg;
+  } @else if $size == xl {
+    font-size: $font-size-xl;
+  } @else if $size == 2xl {
+    font-size: $font-size-2xl;
+  } @else if $size == 3xl {
+    font-size: $font-size-3xl;
+  } @else if $size == 4xl {
+    font-size: $font-size-4xl;
+  } @else if $size == 5xl {
+    font-size: $font-size-5xl;
+  }
+
+  @if $weight == thin {
+    font-weight: $font-weight-thin;
+  } @else if $weight == light {
+    font-weight: $font-weight-light;
+  } @else if $weight == normal {
+    font-weight: $font-weight-normal;
+  } @else if $weight == medium {
+    font-weight: $font-weight-medium;
+  } @else if $weight == semibold {
+    font-weight: $font-weight-semibold;
+  } @else if $weight == bold {
+    font-weight: $font-weight-bold;
+  } @else if $weight == extrabold {
+    font-weight: $font-weight-extrabold;
+  }
+
+  @if $line-height == none {
+    line-height: $line-height-none;
+  } @else if $line-height == tight {
+    line-height: $line-height-tight;
+  } @else if $line-height == snug {
+    line-height: $line-height-snug;
+  } @else if $line-height == normal {
+    line-height: $line-height-normal;
+  } @else if $line-height == relaxed {
+    line-height: $line-height-relaxed;
+  } @else if $line-height == loose {
+    line-height: $line-height-loose;
+  }
+}
+
+// 플렉스 박스 믹스인
+@mixin flex(
+  $direction: row,
+  $justify: flex-start,
+  $align: stretch,
+  $wrap: nowrap
+) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
+  flex-wrap: $wrap;
+}
+
+// 그리드 믹스인
+@mixin grid($columns: 1, $gap: $spacing-4) {
+  display: grid;
+  grid-template-columns: repeat($columns, minmax(0, 1fr));
+  gap: $gap;
+}
+
+// 테두리 믹스인
+@mixin border($width: 1, $style: solid, $color: $color-neutral-200) {
+  @if $width == 0 {
+    border: none;
+  } @else {
+    border-width: if(
+      $width == 1,
+      $border-width-1,
+      if(
+        $width == 2,
+        $border-width-2,
+        if(
+          $width == 4,
+          $border-width-4,
+          if($width == 8, $border-width-8, $border-width-1)
+        )
+      )
+    );
+    border-style: $style;
+    border-color: $color;
+  }
+}
+
+// 테두리 반경 믹스인
+@mixin border-radius($size: base) {
+  @if $size == none {
+    border-radius: $border-radius-none;
+  } @else if $size == sm {
+    border-radius: $border-radius-sm;
+  } @else if $size == base {
+    border-radius: $border-radius-base;
+  } @else if $size == md {
+    border-radius: $border-radius-md;
+  } @else if $size == lg {
+    border-radius: $border-radius-lg;
+  } @else if $size == xl {
+    border-radius: $border-radius-xl;
+  } @else if $size == 2xl {
+    border-radius: $border-radius-2xl;
+  } @else if $size == 3xl {
+    border-radius: $border-radius-3xl;
+  } @else if $size == full {
+    border-radius: $border-radius-full;
+  }
+}
+
+// 그림자 믹스인
+@mixin shadow($size: base) {
+  @if $size == none {
+    box-shadow: $shadow-none;
+  } @else if $size == sm {
+    box-shadow: $shadow-sm;
+  } @else if $size == base {
+    box-shadow: $shadow-base;
+  } @else if $size == md {
+    box-shadow: $shadow-md;
+  } @else if $size == lg {
+    box-shadow: $shadow-lg;
+  } @else if $size == xl {
+    box-shadow: $shadow-xl;
+  } @else if $size == 2xl {
+    box-shadow: $shadow-2xl;
+  } @else if $size == inner {
+    box-shadow: $shadow-inner;
+  }
+}
+
+// 트랜지션 믹스인
+@mixin transition($property: all, $duration: 150ms, $timing: ease-in-out) {
+  transition-property: $property;
+  transition-duration: $duration;
+  transition-timing-function: $timing;
+}
+
+// 포커스 링 믹스인
+@mixin focus-ring($color: $color-primary-500, $offset: 2px, $width: 2px) {
+  &:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 $offset rgba($color, 0.5);
+    border-color: $color;
+  }
+}
+
+// 말줄임표 믹스인
+@mixin truncate($lines: 1) {
+  @if $lines == 1 {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  } @else {
+    display: -webkit-box;
+    -webkit-line-clamp: $lines;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
+
+// 스크롤바 스타일링 믹스인
+@mixin scrollbar(
+  $width: 8px,
+  $thumb-color: $color-neutral-300,
+  $track-color: $color-neutral-100
+) {
+  &::-webkit-scrollbar {
+    width: $width;
+    height: $width;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: $track-color;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $thumb-color;
+    border-radius: $width * 0.5;
+    border: 2px solid $track-color;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: color.adjust($thumb-color, $lightness: -10%);
+  }
+}
