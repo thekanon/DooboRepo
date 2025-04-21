@@ -1,0 +1,131 @@
+// packages/common-ui/src/layouts/page/DataTableLayout.module.scss
+@use "../../scss/variables";
+@use "../../scss/mixins";
+
+// 컴포넌트 스타일
+
+.dataTableLayout {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.header {
+  @include mixins.flex(row, space-between, center);
+  margin-bottom: variables.$spacing-6;
+}
+
+.title {
+  @include mixins.typography(2xl, semibold);
+  color: variables.$color-neutral-900;
+  margin: 0;
+}
+
+.actions {
+  display: flex;
+  gap: variables.$spacing-2;
+}
+
+.filters {
+  margin-bottom: variables.$spacing-4;
+  @include mixins.border(1, solid, variables.$color-neutral-200);
+  @include mixins.border-radius(lg);
+  background-color: white;
+  padding: variables.$spacing-4;
+}
+
+.tableContainer {
+  position: relative;
+  background-color: white;
+  @include mixins.border(1, solid, variables.$color-neutral-200);
+  @include mixins.border-radius(lg);
+  @include mixins.shadow(sm);
+  overflow: hidden;
+  margin-bottom: variables.$spacing-4;
+}
+
+.loadingOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.7);
+  @include mixins.flex(row, center, center);
+  z-index: 1;
+}
+
+.spinner {
+  width: variables.$spacing-8;
+  height: variables.$spacing-8;
+  border: 3px solid variables.$color-primary-100;
+  border-radius: 50%;
+  border-top-color: variables.$color-primary-500;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.error {
+  padding: variables.$spacing-8;
+  text-align: center;
+  color: variables.$color-error-500;
+}
+
+.emptyState {
+  padding: variables.$spacing-12 variables.$spacing-8;
+  text-align: center;
+  color: variables.$color-neutral-500;
+}
+
+.table {
+  overflow-x: auto;
+  width: 100%;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  padding: variables.$spacing-4;
+  @include mixins.border(0, solid, variables.$color-neutral-200);
+  border-top-width: 1px;
+}
+
+.summary {
+  margin-top: variables.$spacing-4;
+  padding: variables.$spacing-4;
+  background-color: variables.$color-neutral-50;
+  @include mixins.border-radius(lg);
+  @include mixins.typography(sm);
+  color: variables.$color-neutral-600;
+}
+
+// 반응형 처리
+@include mixins.respond-to(md) {
+  .header {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+@include mixins.respond-to(sm) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: variables.$spacing-4;
+  }
+
+  .actions {
+    width: 100%;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .pagination {
+    overflow-x: auto;
+  }
+}

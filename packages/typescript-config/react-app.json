@@ -16,6 +16,14 @@
     "noEmit": true,
     "resolveJsonModule": true,
     "target": "es5",
-    "baseUrl": "."
+    "baseUrl": ".",
+    "paths": {
+      "@doo/common-ui": [
+        "../../packages/common-ui/src"
+      ],
+      "@doo/common-ui/*": [
+        "../../packages/common-ui/src/*"
+      ]
+    }
   }
 }

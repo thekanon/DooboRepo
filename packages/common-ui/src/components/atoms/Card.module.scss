@@ -1,0 +1,86 @@
+// packages/common-ui/src/components/atoms/Card.module.scss
+@use "../../scss/variables";
+@use "../../scss/mixins";
+
+.card {
+  background-color: white;
+  @include mixins.border(1, solid, variables.$color-neutral-200);
+  overflow: hidden;
+
+  &.padded {
+    .content {
+      padding: variables.$spacing-4;
+    }
+  }
+
+  &.clickable {
+    cursor: pointer;
+    @include mixins.transition;
+
+    &:hover {
+      transform: translateY(-2px);
+      @include mixins.shadow(lg);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+  }
+}
+
+// 그림자 변형
+.shadow-sm {
+  @include mixins.shadow(sm);
+}
+
+.shadow-md {
+  @include mixins.shadow(md);
+}
+
+.shadow-lg {
+  @include mixins.shadow(lg);
+}
+
+// 테두리 반경 변형
+.radius-sm {
+  @include mixins.border-radius(sm);
+}
+
+.radius-md {
+  @include mixins.border-radius(md);
+}
+
+.radius-lg {
+  @include mixins.border-radius(lg);
+}
+
+.radius-xl {
+  @include mixins.border-radius(xl);
+}
+
+// 헤더 스타일링
+.header {
+  padding: variables.$spacing-3 variables.$spacing-4;
+  @include mixins.border(0, solid, variables.$color-neutral-200);
+  border-bottom-width: 1px;
+  @include mixins.flex(row, space-between, center);
+}
+
+.title {
+  @include mixins.typography(lg, medium);
+  color: variables.$color-neutral-900;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: variables.$spacing-2;
+}
+
+// 푸터 스타일링
+.footer {
+  padding: variables.$spacing-3 variables.$spacing-4;
+  @include mixins.border(0, solid, variables.$color-neutral-200);
+  border-top-width: 1px;
+  background-color: variables.$color-neutral-50;
+}

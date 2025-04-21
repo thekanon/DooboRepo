@@ -1,0 +1,153 @@
+// packages/common-ui/src/components/atoms/Input.module.scss
+@use "../../scss/variables";
+@use "../../scss/mixins";
+
+.inputWrapper {
+  display: flex;
+  flex-direction: column;
+
+  &.full-width {
+    width: 100%;
+  }
+
+  &.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+
+    .input,
+    .prefix,
+    .suffix {
+      cursor: not-allowed;
+    }
+  }
+}
+
+.label {
+  margin-bottom: variables.$spacing-1_5;
+  @include mixins.typography(sm, medium);
+  color: variables.$color-neutral-700;
+}
+
+.inputContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  @include mixins.border(1, solid, variables.$color-neutral-300);
+  @include mixins.border-radius(md);
+  background-color: white;
+  @include mixins.transition;
+
+  &:hover:not(.disabled) {
+    border-color: variables.$color-neutral-400;
+  }
+
+  &:focus-within:not(.disabled) {
+    border-color: variables.$color-primary-500;
+    box-shadow: 0 0 0 2px rgba(variables.$color-primary-500, 0.2);
+  }
+
+  .input {
+    width: 100%;
+    background: none;
+    border: none;
+    outline: none;
+    font-family: variables.$font-family-sans;
+    color: variables.$color-neutral-900;
+
+    &::placeholder {
+      color: variables.$color-neutral-400;
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+    }
+  }
+}
+
+// 크기 변형
+.input-sm {
+  .inputContainer {
+    height: variables.$spacing-8;
+  }
+
+  .input {
+    @include mixins.typography(xs);
+    padding: 0 variables.$spacing-2;
+  }
+
+  .prefix,
+  .suffix {
+    font-size: variables.$font-size-sm;
+  }
+}
+
+.input-md {
+  .inputContainer {
+    height: variables.$spacing-10;
+  }
+
+  .input {
+    @include mixins.typography(sm);
+    padding: 0 variables.$spacing-3;
+  }
+
+  .prefix,
+  .suffix {
+    font-size: variables.$font-size-base;
+  }
+}
+
+.input-lg {
+  .inputContainer {
+    height: variables.$spacing-12;
+  }
+
+  .input {
+    @include mixins.typography(base);
+    padding: 0 variables.$spacing-4;
+  }
+
+  .prefix,
+  .suffix {
+    font-size: variables.$font-size-lg;
+  }
+}
+
+// 접두사 및 접미사
+.prefix {
+  display: flex;
+  align-items: center;
+  padding-left: variables.$spacing-3;
+  color: variables.$color-neutral-500;
+}
+
+.suffix {
+  display: flex;
+  align-items: center;
+  padding-right: variables.$spacing-3;
+  color: variables.$color-neutral-500;
+}
+
+// 에러 상태
+.error {
+  .inputContainer {
+    border-color: variables.$color-error-500 !important;
+
+    &:focus-within {
+      box-shadow: 0 0 0 2px rgba(variables.$color-error-500, 0.2) !important;
+    }
+  }
+}
+
+.errorMessage {
+  margin-top: variables.$spacing-1_5;
+  @include mixins.typography(xs);
+  color: variables.$color-error-500;
+}
+
+.helpText {
+  margin-top: variables.$spacing-1_5;
+  @include mixins.typography(xs);
+  color: variables.$color-neutral-500;
+}

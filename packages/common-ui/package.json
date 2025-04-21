@@ -1,15 +1,22 @@
 {
-  "name": "@common-ui/ui",
+  "name": "@doo/common-ui",
   "version": "0.0.0",
   "sideEffects": false,
   "license": "MIT",
+  "main": "./dist/src/index.js",
+  "module": "./dist/src/index.mjs",
+  "types": "./dist/index.d.ts",
   "exports": {
-    "./button": {
-      "types": "./src/button.tsx",
-      "import": "./dist/button.mjs",
-      "require": "./dist/button.js"
-    }
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/src/index.mjs",
+      "require": "./dist/src/index.js"
+    },
+    "./styles.css": "./dist/src/index.css"
   },
+  "files": [
+    "dist/**"
+  ],
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
@@ -18,14 +25,21 @@
   },
   "devDependencies": {
     "@doo/eslint-config": "workspace:*",
+    "@doo/typescript-config": "workspace:*",
     "@types/react": "^18.2.61",
     "@types/react-dom": "^18.2.19",
+    "autoprefixer": "^10.4.21",
+    "esbuild-css-modules-plugin": "^3.1.4",
+    "esbuild-sass-plugin": "^3.3.1",
     "eslint": "^8.57.0",
-    "@doo/typescript-config": "workspace:*",
+    "postcss": "^8.5.3",
+    "sass": "^1.86.3",
+    "tailwindcss": "^4.1.4",
     "tsup": "^8.0.2",
     "typescript": "5.5.4"
   },
   "dependencies": {
+    "classnames": "^2.5.1",
     "react": "^18.2.0"
   },
   "publishConfig": {
