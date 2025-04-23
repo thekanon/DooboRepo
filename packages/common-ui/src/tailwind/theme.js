@@ -1,19 +1,29 @@
 // packages/common-ui/src/tailwind/theme.js
-const tokens = require("../token");
+import {
+  colors,
+  spacing,
+  typography,
+  shadows,
+  borders,
+  breakpoints,
+  zIndex,
+} from "../token";
 
-module.exports = {
+const themeConfig = {
   extend: {
-    colors: tokens.colors,
-    spacing: tokens.spacing,
-    fontFamily: tokens.typography.fontFamily,
-    fontSize: tokens.typography.fontSize,
-    fontWeight: tokens.typography.fontWeight,
-    lineHeight: tokens.typography.lineHeight,
-    letterSpacing: tokens.typography.letterSpacing,
-    boxShadow: tokens.shadows,
-    borderRadius: tokens.borders.radius,
-    borderWidth: tokens.borders.width,
-    screens: tokens.breakpoints,
-    zIndex: tokens.zIndex,
+    colors,
+    spacing,
+    fontFamily: typography.fontFamily,
+    fontSize: typography.fontSize,
+    fontWeight: typography.fontWeight,
+    lineHeight: typography.lineHeight,
+    letterSpacing: typography.letterSpacing,
+    boxShadow: shadows,
+    borderRadius: borders.radius,
+    borderWidth: borders.width,
+    screens: breakpoints,
+    zIndex,
   },
 };
+
+export default themeConfig;

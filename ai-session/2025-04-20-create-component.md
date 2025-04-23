@@ -42,3 +42,37 @@
 - **Divider**: 섹션 구분선
 - **Spacer**: 간격 조절 컴포넌트
 - **Hidden**: 반응형으로 요소를 숨기는 컴포넌트
+
+## 상태
+
+Atoms
+Text: Text, Heading, Paragraph
+Input: Input, Checkbox, Radio, Select
+Button: Button, IconButton
+Display: Icon, Avatar, Badge
+
+Molecules
+Form Elements: FormField, InputGroup
+Navigation: Breadcrumb, Pagination
+Feedback: Alert, Toast, Modal
+Card: Card, InfoBox
+
+Organisms
+Composite: DataTable, Form, Sidebar
+Section: Header, Footer
+
+Layouts
+Basic Layouts: DashboardLayout, AuthLayout
+Page Layouts: DataTableLayout, FormLayout
+
+## 트러블 슈팅
+
+현재 apps/quiz-admin 에서는 @doo/common-ui import 시 별다른 문제 없이 module.scss가 로드 됨.
+그러나 apps/docs 스토리북에서는 컴포넌트 로딩 시 module.scss가 로드 되지 않음.
+dom-tree를 확인해봐도 관련 내용이 없음
+스토리북 가이드 문서를 확인했을때는 설치하지 않아도 된다고 되어있는데
+이유를 모르겠음.
+
+모노레포의 경우에는 별도의 설정을 해야하는 것인가?
+
+1. vite 설정 추가

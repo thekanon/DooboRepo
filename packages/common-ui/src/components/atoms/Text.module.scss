@@ -1,0 +1,178 @@
+@use "../../scss/variables";
+@use "../../scss/mixins";
+
+.text {
+  margin: 0;
+  padding: 0;
+}
+
+// Text variants
+.variant-h1 {
+  @include mixins.typography(5xl, bold);
+  margin-bottom: variables.$spacing-6;
+}
+
+.variant-h2 {
+  @include mixins.typography(4xl, bold);
+  margin-bottom: variables.$spacing-5;
+}
+
+.variant-h3 {
+  @include mixins.typography(3xl, semibold);
+  margin-bottom: variables.$spacing-4;
+}
+
+.variant-h4 {
+  @include mixins.typography(2xl, semibold);
+  margin-bottom: variables.$spacing-3;
+}
+
+.variant-h5 {
+  @include mixins.typography(xl, semibold);
+  margin-bottom: variables.$spacing-2;
+}
+
+.variant-h6 {
+  @include mixins.typography(lg, semibold);
+  margin-bottom: variables.$spacing-2;
+}
+
+.variant-subtitle1 {
+  @include mixins.typography(lg, medium);
+  margin-bottom: variables.$spacing-2;
+}
+
+.variant-subtitle2 {
+  @include mixins.typography(base, medium);
+  margin-bottom: variables.$spacing-2;
+}
+
+.variant-body1 {
+  @include mixins.typography(base, normal);
+  margin-bottom: variables.$spacing-2;
+}
+
+.variant-body2 {
+  @include mixins.typography(sm, normal);
+  margin-bottom: variables.$spacing-2;
+}
+
+.variant-caption {
+  @include mixins.typography(xs, normal);
+  display: block;
+}
+
+.variant-overline {
+  @include mixins.typography(xs, medium);
+  text-transform: uppercase;
+  letter-spacing: variables.$spacing-0_5;
+  display: block;
+}
+
+// Font weights
+.weight-thin {
+  font-weight: variables.$font-weight-thin;
+}
+
+.weight-light {
+  font-weight: variables.$font-weight-light;
+}
+
+.weight-normal {
+  font-weight: variables.$font-weight-normal;
+}
+
+.weight-medium {
+  font-weight: variables.$font-weight-medium;
+}
+
+.weight-semibold {
+  font-weight: variables.$font-weight-semibold;
+}
+
+.weight-bold {
+  font-weight: variables.$font-weight-bold;
+}
+
+.weight-extrabold {
+  font-weight: variables.$font-weight-extrabold;
+}
+
+// Text alignment
+.align-left {
+  text-align: left;
+}
+
+.align-center {
+  text-align: center;
+}
+
+.align-right {
+  text-align: right;
+}
+
+.align-justify {
+  text-align: justify;
+}
+
+// Text colors
+.color-primary {
+  color: variables.$color-primary-500;
+}
+
+.color-secondary {
+  color: variables.$color-neutral-600;
+}
+
+.color-success {
+  color: variables.$color-success-500;
+}
+
+.color-error {
+  color: variables.$color-error-500;
+}
+
+.color-warning {
+  color: variables.$color-warning-500;
+}
+
+.color-info {
+  color: variables.$color-info-500;
+}
+
+.color-inherit {
+  color: inherit;
+}
+
+// Text decorations
+.strikethrough {
+  text-decoration: line-through;
+}
+
+.underline {
+  text-decoration: underline;
+}
+
+.italic {
+  font-style: italic;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+// Truncation
+.truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.multiLineTruncate {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-word;
+}

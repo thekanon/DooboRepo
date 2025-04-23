@@ -69,6 +69,9 @@ importers:
       eslint:
         specifier: ^8.57.0
         version: 8.57.0
+      sass:
+        specifier: ^1.86.3
+        version: 1.86.3
       serve:
         specifier: ^14.2.1
         version: 14.2.3

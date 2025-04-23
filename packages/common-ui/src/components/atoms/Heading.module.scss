@@ -1,0 +1,121 @@
+@use "../../scss/variables";
+@use "../../scss/mixins";
+
+.heading {
+  margin: 0;
+  font-family: variables.$font-family-sans;
+
+  &.gutterBottom {
+    margin-bottom: variables.$spacing-4;
+  }
+}
+
+// 크기 변형
+.size-xs {
+  font-size: variables.$font-size-xs;
+  line-height: variables.$line-height-tight;
+}
+
+.size-sm {
+  font-size: variables.$font-size-sm;
+  line-height: variables.$line-height-tight;
+}
+
+.size-base {
+  font-size: variables.$font-size-base;
+  line-height: variables.$line-height-tight;
+}
+
+.size-md {
+  font-size: variables.$font-size-lg;
+  line-height: variables.$line-height-tight;
+}
+
+.size-lg {
+  font-size: variables.$font-size-xl;
+  line-height: variables.$line-height-tight;
+}
+
+.size-xl {
+  font-size: variables.$font-size-2xl;
+  line-height: variables.$line-height-tight;
+}
+
+.size-2xl {
+  font-size: variables.$font-size-3xl;
+  line-height: variables.$line-height-tight;
+}
+
+.size-3xl {
+  font-size: variables.$font-size-4xl;
+  line-height: variables.$line-height-tight;
+}
+
+.size-4xl {
+  font-size: variables.$font-size-5xl;
+  line-height: variables.$line-height-tight;
+}
+
+.size-5xl {
+  font-size: variables.$font-size-5xl;
+  line-height: variables.$line-height-tight;
+}
+
+// 폰트 굵기 변형
+.weight-thin {
+  font-weight: variables.$font-weight-thin;
+}
+
+.weight-light {
+  font-weight: variables.$font-weight-light;
+}
+
+.weight-normal {
+  font-weight: variables.$font-weight-normal;
+}
+
+.weight-medium {
+  font-weight: variables.$font-weight-medium;
+}
+
+.weight-semibold {
+  font-weight: variables.$font-weight-semibold;
+}
+
+.weight-bold {
+  font-weight: variables.$font-weight-bold;
+}
+
+.weight-extrabold {
+  font-weight: variables.$font-weight-extrabold;
+}
+
+// 정렬 변형
+.align-left {
+  text-align: left;
+}
+
+.align-center {
+  text-align: center;
+}
+
+.align-right {
+  text-align: right;
+}
+
+// 색상 변형
+.color-default {
+  color: variables.$color-neutral-900;
+}
+
+.color-primary {
+  color: variables.$color-primary-700;
+}
+
+.color-secondary {
+  color: variables.$color-neutral-600;
+}
+
+.color-muted {
+  color: variables.$color-neutral-500;
+}

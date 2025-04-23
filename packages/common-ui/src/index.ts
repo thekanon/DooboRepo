@@ -63,6 +63,36 @@ export type { CardProps } from "./components/atoms/Card";
 export { Input } from "./components/atoms/Input";
 export type { InputProps } from "./components/atoms/Input";
 
+export { Text } from "./components/atoms/Text";
+export type {
+  TextProps,
+  TextVariant,
+  TextWeight,
+  TextAlign,
+  TextColor,
+  TextElement,
+} from "./components/atoms/Text";
+
+export { Heading } from "./components/atoms/Heading";
+export type {
+  HeadingProps,
+  HeadingLevel,
+  HeadingSize,
+  HeadingWeight,
+  HeadingAlign,
+  HeadingColor,
+} from "./components/atoms/Heading";
+
+export { Paragraph } from "./components/atoms/Paragraph";
+export type {
+  ParagraphProps,
+  ParagraphSize,
+  ParagraphWeight,
+  ParagraphAlign,
+  ParagraphColor,
+  ParagraphLineHeight,
+} from "./components/atoms/Paragraph";
+
 // ===================================
 // 🧩  Layout Components
 // ===================================

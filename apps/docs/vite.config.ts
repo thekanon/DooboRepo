@@ -5,6 +5,13 @@ import { resolve } from "path";
 
 export default defineConfig({
   plugins: [react()],
+  css: {
+    modules: {
+      localsConvention: "camelCase",
+      generateScopedName: "[name]__[local]__[hash:base64:5]",
+    },
+  },
+
   resolve: {
     alias: {
       "@doo/common-ui": resolve(

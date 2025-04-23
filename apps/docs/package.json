@@ -17,6 +17,7 @@
   },
   "devDependencies": {
     "@doo/eslint-config": "workspace:*",
+    "@doo/typescript-config": "workspace:*",
     "@storybook/addon-actions": "^8.2.6",
     "@storybook/addon-essentials": "^8.2.6",
     "@storybook/addon-links": "^8.2.6",
@@ -24,9 +25,9 @@
     "@storybook/react-vite": "^8.2.6",
     "@vitejs/plugin-react": "^4.2.1",
     "eslint": "^8.57.0",
+    "sass": "^1.86.3",
     "serve": "^14.2.1",
     "storybook": "^8.2.6",
-    "@doo/typescript-config": "workspace:*",
     "typescript": "5.5.4",
     "vite": "^5.1.4"
   }

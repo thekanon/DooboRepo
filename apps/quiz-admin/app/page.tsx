@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Button } from "@doo/common-ui/button";
+import { Heading } from "@doo/common-ui";
 
 export default function Home() {
   return (
@@ -52,6 +53,7 @@ export default function Home() {
           </a>
         </div>
         <Button>{`Click me`}</Button>
+        <Heading size="3xl">Size 3xl</Heading>
       </main>
       <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
         <a

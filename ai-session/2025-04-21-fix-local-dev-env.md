@@ -51,3 +51,7 @@ sudo lsof -i :[PORT]
 sudo firewall-cmd --list-all
 # 결과: [결과 내용]
 ```
+
+## 현황
+
+위 작업을 통해 해결함.
