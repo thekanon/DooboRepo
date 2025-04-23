@@ -7,3 +7,7 @@ tree -a -I 'node_modules|.next|dist|coverage|\*.log|.git|.turbo|.github|.changes
 ### git branch 생성
 
 git checkout -b feature/your-feature-name
+
+## 제외할 파일
+
+DooboRepo/apps/docs/storybook-static,DooboRepo/apps/quiz-admin/.next

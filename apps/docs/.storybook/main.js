@@ -24,12 +24,6 @@ const config = {
   core: {},
 
   async viteFinal(config, { configType }) {
-    // 전처리기 설정 출력하여 확인
-    console.log(
-      "SCSS Preprocessor Options:",
-      config?.css?.preprocessorOptions?.scss
-    );
-
     // 기존 CSS 설정이 없는 경우 초기화
     if (!config.css) {
       config.css = {};
@@ -46,7 +40,7 @@ const config = {
         ...config.css,
         modules: {
           ...config.css.modules,
-          localsConvention: "camelCase", // "localConvention"이 아닌 "localsConvention"으로 수정
+          localsConvention: "camelCase",
           generateScopedName: "[name]__[local]__[hash:base64:5]",
         },
         preprocessorOptions: {

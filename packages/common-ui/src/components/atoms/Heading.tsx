@@ -117,8 +117,6 @@ export const Heading = forwardRef<HTMLHeadingElement, HeadingProps>(
     );
 
     const Component = `h${level}` as const;
-    console.log("headingClasses", headingClasses);
-    console.log(styles);
 
     return (
       <Component ref={ref} className={headingClasses} {...rest}>
