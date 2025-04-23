@@ -1,0 +1,109 @@
+@use "../../scss/variables";
+@use "../../scss/mixins";
+
+.avatar {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  @include mixins.transition;
+  flex-shrink: 0;
+}
+
+// 아바타 크기
+.avatar-xs {
+  width: variables.$spacing-6; // 24px
+  height: variables.$spacing-6; // 24px
+  font-size: variables.$font-size-xs; // 12px
+}
+
+.avatar-sm {
+  width: variables.$spacing-8; // 32px
+  height: variables.$spacing-8; // 32px
+  font-size: variables.$font-size-sm; // 14px
+}
+
+.avatar-md {
+  width: variables.$spacing-10; // 40px
+  height: variables.$spacing-10; // 40px
+  font-size: variables.$font-size-base; // 16px
+}
+
+.avatar-lg {
+  width: variables.$spacing-12; // 48px
+  height: variables.$spacing-12; // 48px
+  font-size: variables.$font-size-lg; // 18px
+}
+
+.avatar-xl {
+  width: variables.$spacing-16; // 64px
+  height: variables.$spacing-16; // 64px
+  font-size: variables.$font-size-xl; // 20px
+}
+
+// 아바타 형태
+.avatar-circle {
+  border-radius: 50%;
+}
+
+.avatar-square {
+  border-radius: variables.$border-radius-md;
+}
+
+// 이미지와 이니셜
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.initials {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: variables.$font-weight-medium;
+}
+
+// 상태 표시
+.status {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 25%;
+  height: 25%;
+  border-radius: 50%;
+  border: 2px solid white;
+
+  &-online {
+    background-color: variables.$color-success-500;
+  }
+
+  &-offline {
+    background-color: variables.$color-neutral-400;
+  }
+
+  &-away {
+    background-color: variables.$color-warning-500;
+  }
+
+  &-busy {
+    background-color: variables.$color-error-500;
+  }
+}
+
+// 클릭 가능한 아바타
+.clickable {
+  cursor: pointer;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+}

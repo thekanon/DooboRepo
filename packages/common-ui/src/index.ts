@@ -57,6 +57,9 @@ export type {
   ButtonSize,
 } from "./components/atoms/Button";
 
+export { IconButton } from "./components/atoms/IconButton";
+export type { IconButtonProps } from "./components/atoms/IconButton";
+
 export { Card } from "./components/atoms/Card";
 export type { CardProps } from "./components/atoms/Card";
 
@@ -101,6 +104,24 @@ export type {
   ParagraphColor,
   ParagraphLineHeight,
 } from "./components/atoms/Paragraph";
+
+export { Icon } from "./components/atoms/Icon";
+export type { IconProps, IconSize, IconColor } from "./components/atoms/Icon";
+
+export { Avatar } from "./components/atoms/Avatar";
+export type {
+  AvatarProps,
+  AvatarSize,
+  AvatarStatus,
+  AvatarShape,
+} from "./components/atoms/Avatar";
+
+export { Badge } from "./components/atoms/Badge";
+export type {
+  BadgeProps,
+  BadgeVariant,
+  BadgeSize,
+} from "./components/atoms/Badge";
 
 // ===================================
 // 🧩  Layout Components

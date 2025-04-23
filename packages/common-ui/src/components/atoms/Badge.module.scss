@@ -1,0 +1,113 @@
+@use "../../scss/variables";
+@use "../../scss/mixins";
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: variables.$font-family-sans;
+  font-weight: variables.$font-weight-medium;
+  white-space: nowrap;
+  @include mixins.transition;
+
+  // 독립형 배지일 때 기본 스타일
+  &.standalone {
+    @include mixins.border-radius(full);
+    padding: 0 variables.$spacing-2;
+  }
+}
+
+// 배지 크기
+.badge-sm {
+  height: variables.$spacing-4; // 16px
+  min-width: variables.$spacing-4; // 16px
+  font-size: variables.$font-size-xs; // 12px
+
+  &.dot {
+    height: variables.$spacing-2; // 8px
+    width: variables.$spacing-2; // 8px
+    min-width: variables.$spacing-2; // 8px
+  }
+}
+
+.badge-md {
+  height: variables.$spacing-5; // 20px
+  min-width: variables.$spacing-5; // 20px
+  font-size: variables.$font-size-xs; // 12px
+
+  &.dot {
+    height: variables.$spacing-2_5; // 10px
+    width: variables.$spacing-2_5; // 10px
+    min-width: variables.$spacing-2_5; // 10px
+  }
+}
+
+.badge-lg {
+  height: variables.$spacing-6; // 24px
+  min-width: variables.$spacing-6; // 24px
+  font-size: variables.$font-size-sm; // 14px
+
+  &.dot {
+    height: variables.$spacing-3; // 12px
+    width: variables.$spacing-3; // 12px
+    min-width: variables.$spacing-3; // 12px
+  }
+}
+
+// 배지 변형
+.badge-primary {
+  background-color: variables.$color-primary-500;
+  color: white;
+}
+
+.badge-secondary {
+  background-color: variables.$color-neutral-500;
+  color: white;
+}
+
+.badge-success {
+  background-color: variables.$color-success-500;
+  color: white;
+}
+
+.badge-warning {
+  background-color: variables.$color-warning-500;
+  color: white;
+}
+
+.badge-error {
+  background-color: variables.$color-error-500;
+  color: white;
+}
+
+.badge-info {
+  background-color: variables.$color-info-500;
+  color: white;
+}
+
+// 배지 모양
+.rounded {
+  border-radius: 50%;
+  padding: 0;
+}
+
+// 내용이 없는 점 배지
+.dot {
+  border-radius: 50%;
+  padding: 0;
+}
+
+// 배지 래퍼 (다른 요소에 배지 오버레이할 때)
+.badgeWrapper {
+  position: relative;
+  display: inline-flex;
+
+  .badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translate(50%, -50%);
+    z-index: variables.$z-index-docked;
+    border: 2px solid white;
+  }
+}
