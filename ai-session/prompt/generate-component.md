@@ -1,6 +1,6 @@
 ## 프롬프트
 
-# 아래 정보를 기반으로 Heading, Paragraph 컴포넌트를 만들어줘
+# 아래 정보를 기반으로 Checkbox, Radio, Select 컴포넌트를 만들어줘
 
 # 번거롭게 복사 + 붙여넣기 없이 한번에 touch 명령어로 만들 수 있도록 작성해줘
 
