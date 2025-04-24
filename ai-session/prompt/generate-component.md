@@ -1,6 +1,6 @@
 ## 프롬프트
 
-# 아래 정보를 기반으로 Icon, Avatar, Badge 컴포넌트를 만들어줘
+# 아래 정보를 기반으로 Molecules에 FormField, InputGroup 컴포넌트를 만들어줘
 
 # 번거롭게 복사 + 붙여넣기 없이 한번에 touch 명령어로 만들 수 있도록 작성해줘
 
@@ -10,9 +10,9 @@
 
 cat packages/common-ui/src/token/typography.ts
 cat packages/common-ui/src/scss/\_variables.scss
-cat packages/common-ui/src/components/atoms/Button.tsx
-cat packages/common-ui/src/components/atoms/Button.module.scss
-cat apps/docs/stories/Button.stories.tsx
+cat packages/common-ui/src/components/atoms/Input.tsx
+cat packages/common-ui/src/components/atoms/Input.module.scss
+cat apps/docs/stories/Input.stories.tsx
 cat packages/common-ui/src/index.ts
 
 ## example
