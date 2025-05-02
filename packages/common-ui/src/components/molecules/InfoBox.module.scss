@@ -1,0 +1,249 @@
+@use "../../scss/variables";
+@use "../../scss/mixins";
+
+.infoBox {
+  overflow: visible;
+  
+  &.fullWidth {
+    width: 100%;
+  }
+  
+  &.bordered {
+    border: variables.$border-width-1 solid transparent;
+  }
+
+  // 변형별 스타일
+  &.variant-info {
+    background-color: variables.$color-info-50;
+    
+    &.bordered {
+      border-color: variables.$color-info-100;
+    }
+    
+    .icon {
+      color: variables.$color-info-500;
+    }
+    
+    .title {
+      color: variables.$color-info-700;
+    }
+  }
+  
+  &.variant-success {
+    background-color: variables.$color-success-50;
+    
+    &.bordered {
+      border-color: variables.$color-success-100;
+    }
+    
+    .icon {
+      color: variables.$color-success-500;
+    }
+    
+    .title {
+      color: variables.$color-success-700;
+    }
+  }
+  
+  &.variant-warning {
+    background-color: variables.$color-warning-50;
+    
+    &.bordered {
+      border-color: variables.$color-warning-100;
+    }
+    
+    .icon {
+      color: variables.$color-warning-500;
+    }
+    
+    .title {
+      color: variables.$color-warning-700;
+    }
+  }
+  
+  &.variant-error {
+    background-color: variables.$color-error-50;
+    
+    &.bordered {
+      border-color: variables.$color-error-100;
+    }
+    
+    .icon {
+      color: variables.$color-error-500;
+    }
+    
+    .title {
+      color: variables.$color-error-700;
+    }
+  }
+  
+  &.variant-neutral {
+    background-color: variables.$color-neutral-50;
+    
+    &.bordered {
+      border-color: variables.$color-neutral-200;
+    }
+    
+    .icon {
+      color: variables.$color-neutral-500;
+    }
+    
+    .title {
+      color: variables.$color-neutral-700;
+    }
+  }
+
+  // 크기별 스타일
+  &.size-sm {
+    .container {
+      padding: variables.$spacing-2;
+    }
+    
+    .title {
+      font-size: variables.$font-size-sm;
+    }
+    
+    .message {
+      font-size: variables.$font-size-xs;
+    }
+    
+    .iconContainer {
+      margin-right: variables.$spacing-2;
+    }
+  }
+  
+  &.size-md {
+    .container {
+      padding: variables.$spacing-3;
+    }
+    
+    .title {
+      font-size: variables.$font-size-base;
+    }
+    
+    .message {
+      font-size: variables.$font-size-sm;
+    }
+    
+    .iconContainer {
+      margin-right: variables.$spacing-3;
+    }
+  }
+  
+  &.size-lg {
+    .container {
+      padding: variables.$spacing-4;
+    }
+    
+    .title {
+      font-size: variables.$font-size-lg;
+    }
+    
+    .message {
+      font-size: variables.$font-size-base;
+    }
+    
+    .iconContainer {
+      margin-right: variables.$spacing-4;
+    }
+  }
+
+  // 정렬 스타일
+  &.align-left {
+    text-align: left;
+  }
+  
+  &.align-center {
+    text-align: center;
+    
+    .container {
+      justify-content: center;
+    }
+  }
+  
+  &.align-right {
+    text-align: right;
+    
+    .container {
+      justify-content: flex-end;
+    }
+  }
+
+  // 컴팩트 스타일
+  &.compact {
+    .container {
+      padding: variables.$spacing-2;
+    }
+    
+    .title {
+      margin-bottom: variables.$spacing-1;
+    }
+  }
+}
+
+.container {
+  display: flex;
+  align-items: flex-start;
+  position: relative;
+}
+
+.iconContainer {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.content {
+  flex: 1;
+}
+
+.title {
+  font-weight: variables.$font-weight-semibold;
+  margin-bottom: variables.$spacing-2;
+}
+
+.message {
+  color: variables.$color-neutral-700;
+  line-height: variables.$line-height-normal;
+}
+
+.closeButton {
+  position: absolute;
+  top: variables.$spacing-2;
+  right: variables.$spacing-2;
+  cursor: pointer;
+  color: variables.$color-neutral-500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  &:hover {
+    color: variables.$color-neutral-700;
+  }
+}
+
+.actions {
+  display: flex;
+  margin-top: variables.$spacing-3;
+  gap: variables.$spacing-2;
+}
+
+// 반응형 조정
+@media (max-width: variables.$breakpoint-sm) {
+  .infoBox {
+    &.align-center, &.align-right {
+      .container {
+        justify-content: flex-start;
+      }
+    }
+  }
+  
+  .actions {
+    flex-direction: column;
+    
+    > * {
+      width: 100%;
+    }
+  }
+}

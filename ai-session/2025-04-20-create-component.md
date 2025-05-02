@@ -43,28 +43,6 @@
 - **Spacer**: 간격 조절 컴포넌트
 - **Hidden**: 반응형으로 요소를 숨기는 컴포넌트
 
-## 상태
-
-Atoms
-Text: Text, Heading, Paragraph
-Input: Input, Checkbox, Radio, Select
-Button: Button, IconButton
-Display: Icon, Avatar, Badge
-
-Molecules
-Form Elements: FormField, InputGroup
-Navigation: Breadcrumb, Pagination
-Feedback: Alert, Toast, Modal
-Card: Card, InfoBox
-
-Organisms
-Composite: DataTable, Form, Sidebar
-Section: Header, Footer
-
-Layouts
-Basic Layouts: DashboardLayout, AuthLayout
-Page Layouts: DataTableLayout, FormLayout
-
 ## 트러블 슈팅
 
 현재 apps/quiz-admin 에서는 @doo/common-ui import 시 별다른 문제 없이 module.scss가 로드 됨.

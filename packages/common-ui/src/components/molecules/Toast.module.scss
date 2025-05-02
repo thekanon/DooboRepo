@@ -1,0 +1,229 @@
+// Toast.module.scss
+@use "../../scss/variables";
+@use "../../scss/mixins";
+
+.toastContainer {
+  position: fixed;
+  width: 100%;
+  height: 0;
+  overflow: visible;
+  left: 0;
+  right: 0;
+  z-index: variables.$z-index-toast;
+  pointer-events: none;
+}
+
+.toast {
+  position: fixed;
+  min-width: 280px;
+  max-width: 420px;
+  padding: 0;
+  border-radius: variables.$border-radius-md;
+  box-shadow: variables.$shadow-lg;
+  background-color: variables.$color-neutral-50;
+  transform: translateY(-20px);
+  opacity: 0;
+  transition: all 0.3s ease;
+  pointer-events: auto;
+  overflow: hidden;
+
+  &.visible {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  // 위치 스타일
+  &.position-top-right {
+    top: variables.$spacing-4;
+    right: variables.$spacing-4;
+  }
+
+  &.position-top-left {
+    top: variables.$spacing-4;
+    left: variables.$spacing-4;
+  }
+
+  &.position-bottom-right {
+    bottom: variables.$spacing-4;
+    right: variables.$spacing-4;
+  }
+
+  &.position-bottom-left {
+    bottom: variables.$spacing-4;
+    left: variables.$spacing-4;
+  }
+
+  &.position-top-center {
+    top: variables.$spacing-4;
+    left: 50%;
+    transform: translateX(-50%) translateY(-20px);
+
+    &.visible {
+      transform: translateX(-50%) translateY(0);
+    }
+  }
+
+  &.position-bottom-center {
+    bottom: variables.$spacing-4;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+
+    &.visible {
+      transform: translateX(-50%) translateY(0);
+    }
+  }
+
+  // 변형 스타일
+  &.variant-info {
+    background-color: variables.$color-info-50;
+    border-left: 4px solid variables.$color-info-500;
+
+    .icon {
+      color: variables.$color-info-500;
+    }
+
+    .progressBar {
+      background-color: variables.$color-info-500;
+    }
+  }
+
+  &.variant-success {
+    background-color: variables.$color-success-50;
+    border-left: 4px solid variables.$color-success-500;
+
+    .icon {
+      color: variables.$color-success-500;
+    }
+
+    .progressBar {
+      background-color: variables.$color-success-500;
+    }
+  }
+
+  &.variant-warning {
+    background-color: variables.$color-warning-50;
+    border-left: 4px solid variables.$color-warning-500;
+
+    .icon {
+      color: variables.$color-warning-500;
+    }
+
+    .progressBar {
+      background-color: variables.$color-warning-500;
+    }
+  }
+
+  &.variant-error {
+    background-color: variables.$color-error-50;
+    border-left: 4px solid variables.$color-error-500;
+
+    .icon {
+      color: variables.$color-error-500;
+    }
+
+    .progressBar {
+      background-color: variables.$color-error-500;
+    }
+  }
+}
+
+.toastContent {
+  display: flex;
+  align-items: flex-start;
+  padding: variables.$spacing-4;
+}
+
+.iconContainer {
+  flex-shrink: 0;
+  margin-right: variables.$spacing-3;
+}
+
+.contentContainer {
+  flex: 1;
+}
+
+.title {
+  font-weight: variables.$font-weight-semibold;
+  margin-bottom: variables.$spacing-1;
+  color: variables.$color-neutral-900;
+}
+
+.message {
+  color: variables.$color-neutral-800;
+  font-size: variables.$font-size-sm;
+}
+
+.action {
+  margin-top: variables.$spacing-2;
+}
+
+.closeButton {
+  background: transparent;
+  border: none;
+  color: variables.$color-neutral-600;
+  opacity: 0.7;
+  padding: variables.$spacing-1;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-left: variables.$spacing-2;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.progressContainer {
+  height: 4px;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.1);
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+.progressBar {
+  height: 100%;
+  transition: width 10ms linear;
+}
+
+// 모바일 대응
+@media (max-width: variables.$breakpoint-sm) {
+  .toast {
+    min-width: auto;
+    max-width: calc(100% - variables.$spacing-4 * 2);
+    width: calc(100% - variables.$spacing-4 * 2);
+    margin: 0 variables.$spacing-4;
+    
+    &.position-top-center,
+    &.position-bottom-center,
+    &.position-top-left,
+    &.position-top-right,
+    &.position-bottom-left,
+    &.position-bottom-right {
+      left: 0;
+      right: 0;
+      transform: translateY(-20px);
+      
+      &.visible {
+        transform: translateY(0);
+      }
+    }
+    
+    &.position-top-center,
+    &.position-top-left,
+    &.position-top-right {
+      top: variables.$spacing-2;
+    }
+    
+    &.position-bottom-center,
+    &.position-bottom-left,
+    &.position-bottom-right {
+      bottom: variables.$spacing-2;
+      transform: translateY(20px);
+      
+      &.visible {
+        transform: translateY(0);
+      }
+    }
+  }
+}

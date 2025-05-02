@@ -1,0 +1,166 @@
+@use "../../scss/variables";
+@use "../../scss/mixins";
+
+.inputGroup {
+  display: flex;
+
+  &.fullWidth {
+    width: 100%;
+  }
+
+  &.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+
+    * {
+      pointer-events: none;
+    }
+  }
+
+  // 방향 스타일
+  &.direction-horizontal {
+    flex-direction: row;
+    align-items: center;
+
+    .content {
+      flex: 1;
+      display: flex;
+
+      .direction-horizontal & {
+        flex-direction: row;
+        align-items: center;
+
+        > * {
+          min-width: 0;
+        }
+      }
+
+      .direction-vertical & {
+        flex-direction: column;
+        width: 100%;
+      }
+    }
+
+    // 반응형: 모바일에서는 세로 방향으로 변경
+    @media (max-width: variables.$breakpoint-sm) {
+      flex-direction: column;
+      align-items: flex-start;
+
+      .content {
+        flex-direction: column;
+        width: 100%;
+      }
+
+      .prefix,
+      .suffix {
+        width: 100%;
+        margin: variables.$spacing-2 0;
+      }
+    }
+  }
+
+  &.direction-vertical {
+    flex-direction: column;
+
+    .content {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+    }
+  }
+
+  // 간격 스타일
+  &.spacing-sm {
+    &.direction-horizontal .content > * {
+      margin-right: variables.$spacing-2;
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+
+    &.direction-vertical .content > * {
+      margin-bottom: variables.$spacing-2;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  &.spacing-md {
+    &.direction-horizontal .content > * {
+      margin-right: variables.$spacing-4;
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+
+    &.direction-vertical .content > * {
+      margin-bottom: variables.$spacing-4;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  &.spacing-lg {
+    &.direction-horizontal .content > * {
+      margin-right: variables.$spacing-6;
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+
+    &.direction-vertical .content > * {
+      margin-bottom: variables.$spacing-6;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  // 접두사/접미사 스타일
+  &.hasPrefix {
+    .prefix {
+      margin-right: variables.$spacing-3;
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  &.hasSuffix {
+    .suffix {
+      margin-left: variables.$spacing-3;
+      display: flex;
+      align-items: center;
+    }
+  }
+}
+
+.content {
+  flex: 1;
+}
+
+// 반응형 조정
+@media (max-width: variables.$breakpoint-sm) {
+  .inputGroup {
+    &.spacing-sm,
+    &.spacing-md,
+    &.spacing-lg {
+      &.direction-horizontal .content > * {
+        margin-right: 0;
+        margin-bottom: variables.$spacing-2;
+        width: 100%;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+}

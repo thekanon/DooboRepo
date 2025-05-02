@@ -1,5 +1,8 @@
 {
   "extends": "@doo/typescript-config/react-app.json",
-  "include": ["."],
+  "include": [
+    ".",
+    "../../packages/common-ui/src/components/organisms/DataTable"
+  ],
   "exclude": ["dist", "build", "node_modules"]
 }

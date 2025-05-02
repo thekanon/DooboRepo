@@ -1,0 +1,55 @@
+@use "../../scss/variables";
+@use "../../scss/mixins";
+
+.dropdownContainer {
+  position: relative;
+  display: inline-flex;
+}
+
+.dropdownTrigger {
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+}
+
+.dropdownMenu {
+  position: absolute;
+  z-index: variables.$z-index-dropdown;
+  min-width: 180px;
+  max-width: 350px;
+  padding: variables.$spacing-2;
+  background-color: #fff;
+  border: variables.$border-width-1 solid variables.$color-backoffice-border;
+  border-radius: variables.$border-radius-md;
+  box-shadow: variables.$shadow-md;
+
+  // 긴 콘텐츠에 대한 스크롤 처리
+  max-height: 80vh;
+  overflow-y: auto;
+
+  // 애니메이션 효과
+  opacity: 0;
+  transform: translateY(-8px);
+  animation: dropdownFadeIn 0.2s ease forwards;
+}
+
+// 애니메이션 키프레임
+@keyframes dropdownFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// 접근성 지원
+@media (prefers-reduced-motion: reduce) {
+  .dropdownMenu {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}

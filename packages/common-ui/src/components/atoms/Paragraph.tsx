@@ -52,6 +52,10 @@ export interface ParagraphProps {
    * 컴포넌트 내용
    */
   children: React.ReactNode;
+  /**
+   * 기타 HTML 속성
+   */
+  style?: React.CSSProperties;
 }
 
 /**

@@ -1,0 +1,41 @@
+@use "../../scss/variables";
+@use "../../scss/mixins";
+
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.infiniteScroll {
+  width: 100%;
+  height: 1px;
+  visibility: hidden;
+}
+
+.loadingIndicator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: variables.$spacing-4;
+  width: 100%;
+}
+
+.spinner {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 3px solid variables.$color-neutral-200;
+  border-top-color: variables.$color-primary-500;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

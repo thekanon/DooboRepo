@@ -57,11 +57,23 @@ export type {
   ButtonSize,
 } from "./components/atoms/Button";
 
+export { IconButton } from "./components/atoms/IconButton";
+export type { IconButtonProps } from "./components/atoms/IconButton";
+
 export { Card } from "./components/atoms/Card";
 export type { CardProps } from "./components/atoms/Card";
 
 export { Input } from "./components/atoms/Input";
 export type { InputProps } from "./components/atoms/Input";
+
+export { Checkbox } from "./components/atoms/Checkbox";
+export type { CheckboxProps } from "./components/atoms/Checkbox";
+
+export { Radio } from "./components/atoms/Radio";
+export type { RadioProps } from "./components/atoms/Radio";
+
+export { Select } from "./components/atoms/Select";
+export type { SelectProps, SelectOption } from "./components/atoms/Select";
 
 export { Text } from "./components/atoms/Text";
 export type {
@@ -93,6 +105,123 @@ export type {
   ParagraphLineHeight,
 } from "./components/atoms/Paragraph";
 
+export { Icon } from "./components/atoms/Icon";
+export type { IconProps, IconSize, IconColor } from "./components/atoms/Icon";
+
+export { Avatar } from "./components/atoms/Avatar";
+export type {
+  AvatarProps,
+  AvatarSize,
+  AvatarStatus,
+  AvatarShape,
+} from "./components/atoms/Avatar";
+
+export { Badge } from "./components/atoms/Badge";
+export type {
+  BadgeProps,
+  BadgeVariant,
+  BadgeSize,
+} from "./components/atoms/Badge";
+
+export { Spinner } from "./components/atoms/Spinner";
+export { InfiniteScroll } from "./components/molecules/InfiniteScroll";
+export type { InfiniteScrollProps } from "./components/molecules/InfiniteScroll";
+
+// ===================================
+// 🧩  Molecules Components
+// ===================================
+
+export { FormField } from "./components/molecules/FormField";
+export type { FormFieldProps } from "./components/molecules/FormField";
+
+export { InputGroup } from "./components/molecules/InputGroup";
+export type { InputGroupProps } from "./components/molecules/InputGroup";
+
+export { Breadcrumb } from "./components/molecules/Breadcrumb";
+export type {
+  BreadcrumbProps,
+  BreadcrumbItem,
+} from "./components/molecules/Breadcrumb";
+
+export { Pagination } from "./components/molecules/Pagination";
+export type { PaginationProps } from "./components/molecules/Pagination";
+
+export { Alert } from "./components/molecules/Alert";
+export type {
+  AlertProps,
+  AlertVariant,
+  AlertSize,
+} from "./components/molecules/Alert";
+
+export { Toast, ToastController } from "./components/molecules/Toast";
+export type {
+  ToastProps,
+  ToastVariant,
+  ToastPosition,
+} from "./components/molecules/Toast";
+
+export { Modal, ModalFooter } from "./components/molecules/Modal";
+export type {
+  ModalProps,
+  ModalSize,
+  ModalFooterProps,
+} from "./components/molecules/Modal";
+
+export { InfoBox } from "./components/molecules/InfoBox";
+export type {
+  InfoBoxProps,
+  InfoBoxVariant,
+} from "./components/molecules/InfoBox";
+
+// ===================================
+// 🏗️  Organisms Components
+// ===================================
+// ===================================
+// 🏗️  Organisms Components
+// ===================================
+
+export {
+  Form,
+  FormSection,
+  FormFooter,
+  useForm,
+} from "./components/organisms/Form";
+export type {
+  FormProps,
+  FormSectionProps,
+  FormFooterProps,
+  FormLayout,
+  FormSize,
+  ValidationStatus,
+  FormSubmitEvent,
+  UseFormReturn,
+} from "./components/organisms/Form/types";
+export { DataTable } from "./components/organisms/DataTable/DataTable";
+export type {
+  DataTableProps,
+  DataTableColumn,
+  SortDirection,
+  SortState,
+  FilterValue,
+  PaginationState,
+  RowSelectionState,
+} from "./components/organisms/DataTable/types";
+
+export {
+  Sidebar,
+  SidebarHeader,
+  SidebarSection,
+  SidebarNavItem,
+  SidebarFooter,
+} from "./components/organisms/Sidebar";
+export type {
+  SidebarProps,
+  SidebarHeaderProps,
+  SidebarSectionProps,
+  SidebarNavItemProps,
+  SidebarFooterProps,
+} from "./components/organisms/Sidebar/types";
+
 // ===================================
 // 🧩  Layout Components
 // ===================================
@@ -101,8 +230,3 @@ export type { DashboardLayoutProps } from "./layouts/base/DashboardLayout";
 
 export { DataTableLayout } from "./layouts/page/DataTableLayout";
 export type { DataTableLayoutProps } from "./layouts/page/DataTableLayout";
-
-// ===================================
-// ♻️  Legacy Compatibility
-// ===================================
-export { Button as LegacyButton } from "./button";

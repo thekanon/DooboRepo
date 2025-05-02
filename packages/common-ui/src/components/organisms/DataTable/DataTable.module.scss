@@ -1,0 +1,709 @@
+@use "../../../scss/variables";
+@use "../../../scss/mixins";
+@use "sass:color";
+
+.dataTable {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  position: relative;
+  font-family: variables.$font-family-sans;
+
+  &.fullWidth {
+    width: 100%;
+  }
+
+  &.bordered {
+    border: variables.$border-width-1 solid variables.$color-backoffice-border;
+    border-radius: variables.$border-radius-md;
+    overflow: hidden;
+  }
+
+  &.hoverable {
+    tbody
+      tr:hover:not(.dataTableRow-loading):not(.dataTableRow-error):not(
+        .dataTableRow-empty
+      ) {
+      background-color: rgba(variables.$color-primary-500, 0.05);
+    }
+  }
+
+  // 테이블 크기 변형
+  &.size-sm {
+    font-size: variables.$font-size-xs;
+
+    th,
+    td {
+      padding: variables.$spacing-1 variables.$spacing-2;
+    }
+
+    th {
+      height: 32px;
+    }
+
+    td {
+      height: 32px;
+    }
+  }
+
+  &.size-md {
+    font-size: variables.$font-size-sm;
+
+    th,
+    td {
+      padding: variables.$spacing-2 variables.$spacing-3;
+    }
+
+    th {
+      height: 40px;
+    }
+
+    td {
+      height: 44px;
+    }
+  }
+
+  &.size-lg {
+    font-size: variables.$font-size-base;
+
+    th,
+    td {
+      padding: variables.$spacing-3 variables.$spacing-4;
+    }
+
+    th {
+      height: 48px;
+    }
+
+    td {
+      height: 52px;
+    }
+  }
+
+  // 그리드 레이아웃 (css grid 사용) - 개선됨
+  &.gridLayout {
+    display: grid;
+    border-collapse: initial;
+    border-spacing: initial;
+    grid-auto-rows: min-content;
+    grid-template-rows: auto auto;
+
+    // 헤더와 본문 콘텐츠로 구성
+    .dataTableHeader {
+      display: contents;
+
+      .dataTableHeaderRow {
+        display: contents;
+      }
+
+      th {
+        position: sticky;
+        top: 0;
+        z-index: 1;
+        background-color: variables.$color-neutral-50;
+      }
+    }
+
+    .dataTableBody {
+      display: contents;
+
+      .dataTableRow {
+        display: contents;
+      }
+    }
+
+    // 셀 스타일링
+    th, td {
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      min-width: 0;
+      padding: variables.$spacing-2 variables.$spacing-3;
+      box-sizing: border-box;
+      border-bottom: variables.$border-width-1 solid variables.$color-backoffice-border;
+    }
+
+    // 셀간 경계선 명확히 하기
+    .dataTableHeaderCell:not(:last-child),
+    .dataTableCell:not(:last-child) {
+      border-right: variables.$border-width-1 solid variables.$color-backoffice-border;
+    }
+
+    // 선택 셀 특수 처리
+    .dataTableSelectionCell {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    // 행 상태 처리
+    .dataTableStatusRow {
+      grid-column: 1 / -1;
+    }
+  }
+}
+
+.dataTableContainer {
+  position: relative;
+  width: 100%;
+  overflow: auto;
+
+  // 스크롤 가능한 표시 추가
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    height: 16px;
+    width: 16px;
+    background: linear-gradient(
+      135deg,
+      transparent 50%,
+      rgba(variables.$color-neutral-300, 0.2) 50%
+    );
+    border-radius: 0 0 variables.$border-radius-md 0;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+
+  &:hover::after {
+    opacity: 1;
+  }
+
+  // 고정 헤더
+  &.stickyHeader {
+    .dataTableHeader {
+      position: sticky;
+      top: 0;
+      z-index: variables.$z-index-docked;
+      background-color: variables.$color-neutral-50;
+    }
+  }
+}
+
+.dataTableHeader {
+  background-color: variables.$color-neutral-50;
+  font-weight: variables.$font-weight-semibold;
+  color: variables.$color-neutral-700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em; /* letter-spacing-wide 변수가 정의되지 않아 직접 값 사용 */
+  font-size: variables.$font-size-xs;
+  user-select: none;
+}
+
+.dataTableHeaderCell {
+  position: relative;
+  text-align: left;
+  border-bottom: variables.$border-width-1 solid
+    variables.$color-backoffice-border;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  &.sortable {
+    cursor: pointer;
+  }
+
+  &.resizing {
+    user-select: none;
+    cursor: col-resize;
+  }
+
+  &.align-left {
+    text-align: left;
+    justify-content: flex-start;
+  }
+
+  &.align-center {
+    text-align: center;
+    justify-content: center;
+  }
+
+  &.align-right {
+    text-align: right;
+    justify-content: flex-end;
+  }
+}
+
+.dataTableResizer {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+  width: 4px;
+  cursor: col-resize;
+  user-select: none;
+  touch-action: none;
+  opacity: 0;
+  background-color: variables.$color-primary-500;
+  transition: opacity 0.2s ease;
+
+  &:hover,
+  &.isResizing {
+    opacity: 1;
+  }
+}
+
+.dataTableSortIcon {
+  display: inline-flex;
+  margin-left: variables.$spacing-1;
+  vertical-align: middle;
+  color: variables.$color-neutral-600;
+  transition: color 0.2s ease;
+
+  &.sorted {
+    color: variables.$color-primary-500;
+  }
+}
+
+.dataTableHeaderContent {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.dataTableBody {
+  background-color: #fff;
+}
+
+.dataTableRow {
+  border-bottom: variables.$border-width-1 solid
+    variables.$color-backoffice-border;
+  transition: background-color 0.2s ease;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &.selected {
+    background-color: rgba(variables.$color-primary-500, 0.08);
+  }
+
+  &.striped:nth-child(even) {
+    background-color: rgba(variables.$color-neutral-100, 0.5);
+  }
+
+  &.clickable {
+    cursor: pointer;
+  }
+}
+
+.dataTableCell {
+  border-bottom: variables.$border-width-1 solid
+    variables.$color-backoffice-border;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  &.align-left {
+    text-align: left;
+    justify-content: flex-start;
+  }
+
+  &.align-center {
+    text-align: center;
+    justify-content: center;
+  }
+
+  &.align-right {
+    text-align: right;
+    justify-content: flex-end;
+  }
+}
+
+.dataTableSelectionCell {
+  width: 40px;
+  min-width: 40px;
+  max-width: 40px;
+  padding: 0 !important;
+  text-align: center;
+}
+
+.dataTableCheckbox {
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// 상태 관련 행 스타일
+.dataTableStatusRow {
+  border-bottom: variables.$border-width-1 solid
+    variables.$color-backoffice-border;
+
+  .dataTableStatusCell {
+    text-align: center;
+    padding: variables.$spacing-8 variables.$spacing-4;
+    color: variables.$color-neutral-600;
+  }
+}
+
+.dataTableEmptyRow {
+  @extend .dataTableStatusRow;
+}
+
+.dataTableErrorRow {
+  @extend .dataTableStatusRow;
+  background-color: variables.$color-error-50;
+
+  .dataTableStatusCell {
+    color: variables.$color-error-700;
+  }
+}
+
+.dataTableLoadingRow {
+  @extend .dataTableStatusRow;
+  background-color: variables.$color-neutral-50;
+}
+
+.dataTableSpinner {
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: spin 1s linear infinite;
+  color: variables.$color-primary-500;
+}
+
+// 페이지네이션 및 도구 모음
+.dataTablePagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: variables.$spacing-3;
+  border-top: variables.$border-width-1 solid variables.$color-backoffice-border;
+  background-color: variables.$color-neutral-50;
+}
+
+.dataTableToolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: variables.$spacing-3;
+  background-color: #fff;
+  border-bottom: variables.$border-width-1 solid
+    variables.$color-backoffice-border;
+  flex-wrap: wrap;
+  gap: variables.$spacing-2;
+
+  .dataTableActions {
+    display: flex;
+    align-items: center;
+    gap: variables.$spacing-2;
+    flex-wrap: wrap;
+  }
+
+  .dataTableFilters {
+    display: flex;
+    align-items: center;
+    gap: variables.$spacing-2;
+    flex-wrap: wrap;
+  }
+}
+
+.dataTableBulkActions {
+  display: flex;
+  align-items: center;
+  padding: variables.$spacing-2 variables.$spacing-3;
+  background-color: variables.$color-primary-50;
+  border-bottom: variables.$border-width-1 solid variables.$color-primary-200;
+
+  .dataTableBulkActionsInfo {
+    margin-right: variables.$spacing-4;
+    font-weight: variables.$font-weight-medium;
+    color: variables.$color-primary-700;
+  }
+
+  .dataTableBulkActionsButtons {
+    display: flex;
+    align-items: center;
+    gap: variables.$spacing-2;
+  }
+}
+
+// 필터 및 컬럼 토글 관련
+.dataTableFilter {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.dataTableFilterMenu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: variables.$z-index-dropdown;
+  min-width: 220px;
+  padding: variables.$spacing-2;
+  margin-top: variables.$spacing-1;
+  background-color: #fff;
+  border: variables.$border-width-1 solid variables.$color-backoffice-border;
+  border-radius: variables.$border-radius-md;
+  box-shadow: variables.$shadow-md;
+}
+
+.dataTableColumnToggle {
+  position: relative;
+  display: inline-flex;
+}
+
+.dataTableColumnToggleMenu {
+  position: relative;
+  top: 100%;
+  right: 0;
+  z-index: variables.$z-index-dropdown;
+  min-width: 180px;
+  padding: variables.$spacing-2;
+  margin-top: variables.$spacing-1;
+  background-color: #fff;
+  border: variables.$border-width-1 solid variables.$color-backoffice-border;
+  border-radius: variables.$border-radius-md;
+  box-shadow: variables.$shadow-md;
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  li {
+    padding: variables.$spacing-1 variables.$spacing-2;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    border-radius: variables.$border-radius-sm;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      background-color: variables.$color-neutral-100;
+    }
+  }
+
+  .columnToggleCheckbox {
+    margin-right: variables.$spacing-2;
+  }
+}
+
+.dataTableToolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.dataTableTools {
+  display: flex;
+  gap: 8px;
+}
+
+// 키프레임 애니메이션
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// 모바일 및 작은 화면 최적화
+@media (max-width: variables.$breakpoint-lg) {
+  // 툴바 반응형 최적화
+  .dataTableToolbar {
+    flex-direction: column;
+    align-items: flex-start;
+    
+    .dataTableTools {
+      margin-top: variables.$spacing-2;
+      width: 100%;
+      justify-content: flex-end;
+    }
+  }
+  
+  // 페이지네이션 컴팩트 모드
+  .dataTablePagination {
+    flex-direction: column;
+    gap: variables.$spacing-2;
+    align-items: center;
+  }
+  
+  // 벌크 액션 레이아웃 조정
+  .dataTableBulkActions {
+    flex-direction: column;
+    
+    .dataTableBulkActionsInfo {
+      margin-right: 0;
+      margin-bottom: variables.$spacing-2;
+    }
+  }
+}
+
+// 모바일 뷰
+@media (max-width: variables.$breakpoint-md) {
+  .dataTable {
+    font-size: variables.$font-size-xs;
+    
+    // 그리드 레이아웃에서도 모바일 대응
+    &.gridLayout.cardViewOnMobile {
+      display: block;
+    }
+    
+    &.cardViewOnMobile {
+      display: block;
+      border: none;
+
+      .dataTableHeader {
+        display: none;
+      }
+
+      .dataTableBody {
+        display: flex;
+        flex-direction: column;
+        gap: variables.$spacing-3;
+      }
+
+      .dataTableRow {
+        display: flex;
+        flex-direction: column;
+        border: variables.$border-width-1 solid
+          variables.$color-backoffice-border;
+        border-radius: variables.$border-radius-md;
+        margin-bottom: variables.$spacing-3;
+        padding: variables.$spacing-3;
+        box-shadow: variables.$shadow-sm;
+        background-color: #fff;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+        
+        // 선택된 행 강조
+        &.selected {
+          border-left: 3px solid variables.$color-primary-500;
+        }
+      }
+
+      .dataTableCell {
+        display: flex;
+        border: none;
+        padding: variables.$spacing-2 0;
+        text-align: left;
+        white-space: normal;
+        min-height: 36px;
+        align-items: center;
+        border-bottom: 1px solid variables.$color-neutral-100;
+        
+        &:last-child {
+          border-bottom: none;
+        }
+
+        &::before {
+          content: attr(data-label);
+          font-weight: variables.$font-weight-semibold;
+          width: 40%;
+          min-width: 40%;
+          margin-right: variables.$spacing-3;
+          color: variables.$color-neutral-700;
+          text-align: left;
+        }
+
+        &.dataTableSelectionCell {
+          padding: variables.$spacing-2 0 !important;
+          justify-content: flex-start;
+
+          &::before {
+            content: "선택";
+          }
+        }
+      }
+      
+      // 카드 뷰에서 상태 행 스타일링
+      .dataTableStatusRow {
+        margin-bottom: variables.$spacing-3;
+        padding: variables.$spacing-3;
+        border-radius: variables.$border-radius-md;
+        border: variables.$border-width-1 solid variables.$color-backoffice-border;
+        box-shadow: variables.$shadow-sm;
+        
+        .dataTableStatusCell {
+          padding: variables.$spacing-4;
+        }
+      }
+    }
+    
+    // 모바일 환경에서 작은 테이블
+    &:not(.cardViewOnMobile) {
+      th, td {
+        padding: variables.$spacing-1 variables.$spacing-2;
+        font-size: variables.$font-size-xs;
+      }
+    }
+  }
+  
+  // 모바일 스크롤 힌트
+  .dataTableContainer {
+    position: relative;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    
+    &:not(.cardViewContainer):after {
+      content: "";
+      position: absolute;
+      right: 0;
+      top: 50%;
+      width: 20px;
+      height: 40px;
+      background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.8) 100%);
+      pointer-events: none;
+      opacity: 0.7;
+      animation: fadeInOut 1.5s infinite alternate;
+    }
+  }
+  
+  // 무한 스크롤 로딩 인디케이터 최적화
+  .infiniteScrollLoader {
+    padding: variables.$spacing-3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+// 타블렛 크기에서의 최적화
+@media (min-width: variables.$breakpoint-md) and (max-width: variables.$breakpoint-lg) {
+  .dataTable {
+    &:not(.cardViewOnMobile) {
+      th, td {
+        padding: variables.$spacing-1 variables.$spacing-2;
+        font-size: variables.$font-size-sm;
+      }
+    }
+  }
+}
+
+// 추가 접근성 지원
+@media (prefers-reduced-motion: reduce) {
+  .dataTableSpinner,
+  .dataTableContainer:after {
+    animation: none;
+  }
+
+  .dataTableRow,
+  .dataTableResizer,
+  .dataTableSortIcon,
+  li {
+    transition: none;
+  }
+}
+
+// 스크롤 힌트용 애니메이션
+@keyframes fadeInOut {
+  from {
+    opacity: 0.2;
+  }
+  to {
+    opacity: 0.8;
+  }
+}

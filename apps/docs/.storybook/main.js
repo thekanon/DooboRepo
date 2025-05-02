@@ -7,7 +7,7 @@ function getAbsolutePath(value) {
 const config = {
   // MDX 파일을 스토리 목록에 추가하고 가장 먼저 나오도록 순서 조정
   stories: [
-    "../stories/design-system.mdx", // 디자인 시스템 설명이 가장 먼저 나오도록 함
+    "../design-system.mdx", // 디자인 시스템 설명이 가장 먼저 나오도록 함
     "../stories/*.mdx", // 다른 MDX 파일이 있다면 다음 순서로
     "../stories/*.stories.tsx", // 그 다음에 컴포넌트 스토리
     "../stories/**/*.stories.tsx",

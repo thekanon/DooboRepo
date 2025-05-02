@@ -176,3 +176,9 @@
   text-overflow: ellipsis;
   word-break: break-word;
 }
+
+.verticalCenter {
+  display: inline-flex;
+  align-items: center;
+  align-self: center;
+}

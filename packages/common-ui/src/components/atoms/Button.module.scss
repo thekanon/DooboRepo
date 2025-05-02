@@ -1,120 +1,95 @@
-// packages/common-ui/src/components/Button.module.scss
-@use "sass:color";
 @use "../../scss/variables";
 @use "../../scss/mixins";
 
 .button {
-  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   font-family: variables.$font-family-sans;
   font-weight: variables.$font-weight-medium;
   border: none;
+  outline: none;
   cursor: pointer;
-  @include mixins.transition;
   @include mixins.border-radius(md);
+  @include mixins.transition;
+  position: relative;
+  overflow: hidden;
 
-  &:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-  }
-
-  &:focus {
+  &:focus-visible {
+    box-shadow:
+      0 0 0 2px white,
+      0 0 0 4px variables.$color-primary-500;
     outline: none;
   }
 
-  @include mixins.focus-ring;
+  &.full-width {
+    width: 100%;
+  }
+
+  &.disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+    pointer-events: none;
+  }
 }
 
-// 크기 변형
+// 사이즈 변형
 .button-sm {
-  @include mixins.typography(xs);
-  padding: variables.$spacing-1_5 variables.$spacing-3;
   height: variables.$spacing-8;
-
-  .leftIcon,
-  .rightIcon {
-    height: variables.$spacing-3_5;
-    width: variables.$spacing-3_5;
-  }
+  padding: 0 variables.$spacing-3;
+  @include mixins.typography(xs, medium);
 }
 
 .button-md {
-  @include mixins.typography(sm);
-  padding: variables.$spacing-2 variables.$spacing-4;
   height: variables.$spacing-10;
-
-  .leftIcon,
-  .rightIcon {
-    height: variables.$spacing-4;
-    width: variables.$spacing-4;
-  }
+  padding: 0 variables.$spacing-4;
+  @include mixins.typography(sm, medium);
 }
 
 .button-lg {
-  @include mixins.typography(base);
-  padding: variables.$spacing-2_5 variables.$spacing-5;
   height: variables.$spacing-12;
-
-  .leftIcon,
-  .rightIcon {
-    height: variables.$spacing-5;
-    width: variables.$spacing-5;
-  }
+  padding: 0 variables.$spacing-5;
+  @include mixins.typography(base, medium);
 }
 
-// 색상 변형
+// 버튼 변형
 .button-primary {
   background-color: variables.$color-primary-500;
   color: white;
 
-  &:hover:not(:disabled) {
+  &:hover:not(.disabled) {
     background-color: variables.$color-primary-600;
   }
 
-  &:active:not(:disabled) {
+  &:active:not(.disabled) {
     background-color: variables.$color-primary-700;
   }
 }
 
 .button-secondary {
   background-color: variables.$color-neutral-100;
-  color: variables.$color-neutral-900;
-  @include mixins.border(1, solid, variables.$color-neutral-200);
+  color: variables.$color-neutral-800;
 
-  &:hover:not(:disabled) {
+  &:hover:not(.disabled) {
     background-color: variables.$color-neutral-200;
   }
 
-  &:active:not(:disabled) {
+  &:active:not(.disabled) {
     background-color: variables.$color-neutral-300;
   }
 }
 
-.button-tertiary {
-  background-color: variables.$color-primary-50;
-  color: variables.$color-primary-700;
+.button-outline {
+  background-color: transparent;
+  color: variables.$color-primary-500;
+  @include mixins.border(1, solid, variables.$color-primary-500);
 
-  &:hover:not(:disabled) {
+  &:hover:not(.disabled) {
+    background-color: variables.$color-primary-50;
+  }
+
+  &:active:not(.disabled) {
     background-color: variables.$color-primary-100;
-  }
-
-  &:active:not(:disabled) {
-    background-color: variables.$color-primary-200;
-  }
-}
-
-.button-danger {
-  background-color: variables.$color-error-500;
-  color: white;
-
-  &:hover:not(:disabled) {
-    background-color: variables.$color-error-700;
-  }
-
-  &:active:not(:disabled) {
-    background-color: color.adjust(variables.$color-error-700, $lightness: -5%);
   }
 }
 
@@ -122,51 +97,76 @@
   background-color: transparent;
   color: variables.$color-neutral-700;
 
-  &:hover:not(:disabled) {
+  &:hover:not(.disabled) {
     background-color: variables.$color-neutral-100;
   }
 
-  &:active:not(:disabled) {
+  &:active:not(.disabled) {
     background-color: variables.$color-neutral-200;
   }
 }
 
-// 전체 너비
-.button-full-width {
-  width: 100%;
-}
+.button-danger {
+  background-color: variables.$color-error-500;
+  color: white;
 
-// 아이콘 배치
-.leftIcon {
-  margin-right: variables.$spacing-2;
-  display: flex;
-  align-items: center;
-}
+  &:hover:not(.disabled) {
+    background-color: variables.$color-error-700;
+  }
 
-.rightIcon {
-  margin-left: variables.$spacing-2;
-  display: flex;
-  align-items: center;
-}
-
-// 로딩 상태
-.button-loading {
-  color: transparent !important;
-  pointer-events: none;
-
-  .loader {
-    position: absolute;
-    width: variables.$spacing-4;
-    height: variables.$spacing-4;
-    border: 2px solid currentColor;
-    border-radius: 50%;
-    border-top-color: transparent;
-    animation: button-spin 0.7s linear infinite;
+  &:active:not(.disabled) {
+    background-color: darken(variables.$color-error-700, 5%);
   }
 }
 
-@keyframes button-spin {
-  to {
+// 로딩 상태
+.loading {
+  .loadingText {
+    opacity: 0.7;
+    // margin-left: variables.$spacing-2;
+  }
+}
+
+.loadingIndicator {
+  position: absolute;
+  left: 50%;
+  margin-left: -12px;
+  display: inline-flex;
+  align-items: center;
+
+  svg {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+.spinner {
+  animation: rotate 1.5s linear infinite;
+
+  circle {
+    stroke: currentColor;
+    stroke-linecap: round;
+    animation: dash 1.5s ease-in-out infinite;
+  }
+}
+
+@keyframes rotate {
+  100% {
     transform: rotate(360deg);
+  }
+}
+
+@keyframes dash {
+  0% {
+    stroke-dasharray: 1, 150;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -35;
+  }
+  100% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -124;
   }
 }

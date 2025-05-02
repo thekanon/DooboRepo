@@ -125,6 +125,12 @@ export interface TextProps {
   lines?: number;
 
   /**
+   * 텍스트의 수직 정렬 방식
+   * @default "none"
+   */
+  verticalAlign?: "none" | "center";
+
+  /**
    * Additional props for the HTML element
    */
   [key: string]: any;
@@ -138,6 +144,7 @@ export const Text = forwardRef<HTMLElement, TextProps>(
       weight = "normal",
       color = "inherit",
       align = "left",
+      verticalAlign = "none",
       strikethrough = false,
       underline = false,
       italic = false,
@@ -186,6 +193,7 @@ export const Text = forwardRef<HTMLElement, TextProps>(
         [styles.uppercase]: uppercase,
         [styles.truncate]: truncate && !lines,
         [styles.multiLineTruncate]: truncate && lines && lines > 1,
+        [styles.verticalCenter]: verticalAlign === "center",
       },
       className
     );

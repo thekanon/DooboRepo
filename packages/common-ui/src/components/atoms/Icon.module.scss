@@ -1,0 +1,69 @@
+@use "../../scss/variables";
+@use "../../scss/mixins";
+
+.icon {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-self: center;
+  vertical-align: middle;
+  fill: currentColor;
+}
+
+// 아이콘 크기
+.icon-xs {
+  width: variables.$spacing-3; // 12px
+  height: variables.$spacing-3; // 12px
+}
+
+.icon-sm {
+  width: variables.$spacing-4; // 16px
+  height: variables.$spacing-4; // 16px
+}
+
+.icon-md {
+  width: variables.$spacing-5; // 20px
+  height: variables.$spacing-5; // 20px
+}
+
+.icon-lg {
+  width: variables.$spacing-6; // 24px
+  height: variables.$spacing-6; // 24px
+}
+
+.icon-xl {
+  width: variables.$spacing-8; // 32px
+  height: variables.$spacing-8; // 32px
+}
+
+// 아이콘 색상
+.icon-color-primary {
+  color: variables.$color-primary-500;
+}
+
+.icon-color-secondary {
+  color: variables.$color-neutral-600;
+}
+
+.icon-color-success {
+  color: variables.$color-success-500;
+}
+
+.icon-color-warning {
+  color: variables.$color-warning-500;
+}
+
+.icon-color-error {
+  color: variables.$color-error-500;
+}
+
+.icon-color-info {
+  color: variables.$color-info-500;
+}
+
+.icon-color-neutral {
+  color: variables.$color-neutral-500;
+}
+
+.icon-color-inherit {
+  color: inherit;
+}

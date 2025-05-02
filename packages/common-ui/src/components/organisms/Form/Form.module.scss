@@ -1,0 +1,317 @@
+@use "../../../scss/variables";
+@use "../../../scss/mixins";
+
+.form {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 100%;
+
+  &.fullWidth {
+    width: 100%;
+  }
+
+  &.bordered {
+    border: variables.$border-width-1 solid variables.$color-neutral-200;
+    border-radius: variables.$border-radius-lg;
+    padding: variables.$spacing-6;
+  }
+
+  &.disabled {
+    opacity: 0.7;
+    pointer-events: none;
+  }
+
+  // 레이아웃 스타일
+  &.vertical {
+    > *:not(:last-child) {
+      margin-bottom: variables.$spacing-4;
+    }
+  }
+
+  &.horizontal {
+    .formField {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+
+      .labelContainer {
+        flex-shrink: 0;
+        padding-right: variables.$spacing-4;
+        padding-top: variables.$spacing-2;
+      }
+
+      .fieldContainer {
+        flex: 1;
+      }
+    }
+
+    @media (max-width: variables.$breakpoint-sm) {
+      .formField {
+        flex-direction: column;
+
+        .labelContainer {
+          padding-right: 0;
+          margin-bottom: variables.$spacing-2;
+          width: 100% !important;
+        }
+      }
+    }
+  }
+
+  &.inline {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: variables.$spacing-4;
+
+    .formField {
+      margin-bottom: 0;
+    }
+
+    @media (max-width: variables.$breakpoint-md) {
+      flex-direction: column;
+      align-items: stretch;
+
+      .formField {
+        width: 100%;
+      }
+    }
+  }
+
+  // 간격 스타일
+  &.spacingSm {
+    > *:not(:last-child) {
+      margin-bottom: variables.$spacing-2;
+    }
+  }
+
+  &.spacingMd {
+    > *:not(:last-child) {
+      margin-bottom: variables.$spacing-4;
+    }
+  }
+
+  &.spacingLg {
+    > *:not(:last-child) {
+      margin-bottom: variables.$spacing-6;
+    }
+  }
+
+  // 정렬 스타일
+  &.alignStart {
+    align-items: flex-start;
+  }
+
+  &.alignCenter {
+    align-items: center;
+  }
+
+  &.alignEnd {
+    align-items: flex-end;
+  }
+
+  // 크기 스타일
+  &.sizeSm {
+    font-size: variables.$font-size-sm;
+
+    .label {
+      font-size: variables.$font-size-xs;
+    }
+  }
+
+  &.sizeMd {
+    font-size: variables.$font-size-base;
+
+    .label {
+      font-size: variables.$font-size-sm;
+    }
+  }
+
+  &.sizeLg {
+    font-size: variables.$font-size-lg;
+
+    .label {
+      font-size: variables.$font-size-base;
+    }
+  }
+}
+
+// 유효성 검증 요약
+.validationSummary {
+  margin-bottom: variables.$spacing-4;
+  padding: variables.$spacing-3;
+  border-radius: variables.$border-radius-md;
+  background-color: variables.$color-error-50;
+  border: variables.$border-width-1 solid variables.$color-error-100;
+  color: variables.$color-error-700;
+
+  ul {
+    margin: variables.$spacing-2 0 0;
+    padding-left: variables.$spacing-5;
+  }
+}
+
+// 폼 섹션 스타일
+.formSection {
+  margin-bottom: variables.$spacing-6;
+  border-radius: variables.$border-radius-lg;
+  overflow: hidden;
+
+  &.bordered {
+    border: variables.$border-width-1 solid variables.$color-neutral-200;
+  }
+
+  .sectionHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: variables.$spacing-4;
+    background-color: variables.$color-neutral-50;
+    border-bottom: variables.$border-width-1 solid variables.$color-neutral-200;
+
+    .titleContainer {
+      flex: 1;
+    }
+
+    .title {
+      font-size: variables.$font-size-lg;
+      font-weight: variables.$font-weight-semibold;
+      color: variables.$color-neutral-800;
+      margin: 0;
+    }
+
+    .description {
+      margin-top: variables.$spacing-1;
+      color: variables.$color-neutral-600;
+      font-size: variables.$font-size-sm;
+    }
+
+    .actions {
+      display: flex;
+      gap: variables.$spacing-2;
+      margin-left: variables.$spacing-4;
+    }
+
+    .collapseButton {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: variables.$color-neutral-500;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: variables.$spacing-1;
+      border-radius: variables.$border-radius-base;
+      transition: all 0.2s ease;
+
+      &:hover {
+        color: variables.$color-neutral-700;
+        background-color: variables.$color-neutral-100;
+      }
+
+      svg {
+        transition: transform 0.2s ease;
+      }
+
+      &.collapsed svg {
+        transform: rotate(-90deg);
+      }
+    }
+  }
+
+  .sectionContent {
+    &.paddingSm {
+      padding: variables.$spacing-3;
+    }
+
+    &.paddingMd {
+      padding: variables.$spacing-4;
+    }
+
+    &.paddingLg {
+      padding: variables.$spacing-6;
+    }
+
+    &.collapsed {
+      display: none;
+    }
+  }
+}
+
+// 폼 푸터 스타일
+.formFooter {
+  display: flex;
+  align-items: center;
+  padding-top: variables.$spacing-6;
+  margin-top: variables.$spacing-6;
+  border-top: variables.$border-width-1 solid variables.$color-neutral-200;
+
+  &.alignStart {
+    justify-content: flex-start;
+  }
+
+  &.alignCenter {
+    justify-content: center;
+  }
+
+  &.alignEnd {
+    justify-content: flex-end;
+  }
+
+  &.alignBetween {
+    justify-content: space-between;
+  }
+
+  .buttonGroup {
+    display: flex;
+    gap: variables.$spacing-3;
+  }
+
+  &.sticky {
+    position: sticky;
+    bottom: 0;
+    background-color: variables.$color-backoffice-background;
+    padding: variables.$spacing-4;
+    margin-top: 0;
+    margin-left: -(variables.$spacing-6);
+    margin-right: -(variables.$spacing-6);
+    margin-bottom: -(variables.$spacing-6);
+    border-top: variables.$border-width-1 solid variables.$color-neutral-200;
+    border-radius: 0 0 variables.$border-radius-lg variables.$border-radius-lg;
+    box-shadow: variables.$shadow-md;
+    z-index: variables.$z-index-docked;
+  }
+}
+
+// 반응형 조정
+@media (max-width: variables.$breakpoint-md) {
+  .form {
+    &.bordered {
+      padding: variables.$spacing-4;
+    }
+  }
+
+  .formFooter {
+    flex-direction: column;
+    gap: variables.$spacing-3;
+
+    &.alignStart,
+    &.alignCenter,
+    &.alignEnd,
+    &.alignBetween {
+      justify-content: center;
+    }
+
+    .buttonGroup {
+      width: 100%;
+      flex-direction: column;
+    }
+
+    &.sticky {
+      margin-left: -(variables.$spacing-4);
+      margin-right: -(variables.$spacing-4);
+      margin-bottom: -(variables.$spacing-4);
+    }
+  }
+}

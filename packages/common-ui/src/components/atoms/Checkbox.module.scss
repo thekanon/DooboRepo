@@ -1,0 +1,144 @@
+@use "../../scss/variables";
+@use "../../scss/mixins";
+
+.checkboxWrapper {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+
+  &.full-width {
+    width: 100%;
+  }
+
+  &.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+
+    .input,
+    .checkmark,
+    .label {
+      cursor: not-allowed;
+    }
+  }
+}
+
+.inputContainer {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.input {
+  position: absolute;
+  opacity: 0;
+  height: 0;
+  width: 0;
+  cursor: pointer;
+
+  &:focus ~ .checkmark {
+    box-shadow: 0 0 0 2px rgba(variables.$color-primary-500, 0.2);
+  }
+
+  &:disabled ~ .checkmark {
+    background-color: variables.$color-neutral-100;
+    border-color: variables.$color-neutral-300;
+    cursor: not-allowed;
+  }
+}
+
+.checkmark {
+  display: inline-block;
+  position: relative;
+  @include mixins.border(1, solid, variables.$color-neutral-300);
+  @include mixins.border-radius(base);
+  @include mixins.transition;
+  background-color: white;
+
+  &:after {
+    content: "";
+    position: absolute;
+    display: none;
+    left: 50%;
+    top: 50%;
+    width: 30%;
+    height: 60%;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: translate(-50%, -60%) rotate(45deg);
+  }
+}
+
+.checked .checkmark {
+  background-color: variables.$color-primary-500;
+  border-color: variables.$color-primary-500;
+
+  &:after {
+    display: block;
+  }
+}
+
+.label {
+  @include mixins.typography(sm, normal);
+  color: variables.$color-neutral-700;
+  cursor: pointer;
+}
+
+// 크기 변형
+.checkbox-sm {
+  .checkmark {
+    height: 16px;
+    width: 16px;
+    margin-right: variables.$spacing-2;
+  }
+
+  .label {
+    @include mixins.typography(xs);
+  }
+}
+
+.checkbox-md {
+  .checkmark {
+    height: 20px;
+    width: 20px;
+    margin-right: variables.$spacing-3;
+  }
+
+  .label {
+    @include mixins.typography(sm);
+  }
+}
+
+.checkbox-lg {
+  .checkmark {
+    height: 24px;
+    width: 24px;
+    margin-right: variables.$spacing-3;
+  }
+
+  .label {
+    @include mixins.typography(base);
+  }
+}
+
+// 에러 상태
+.error {
+  .checkmark {
+    border-color: variables.$color-error-500 !important;
+  }
+
+  &.checked .checkmark {
+    background-color: variables.$color-error-500;
+  }
+}
+
+.errorMessage {
+  margin-top: variables.$spacing-1_5;
+  @include mixins.typography(xs);
+  color: variables.$color-error-500;
+}
+
+.helpText {
+  margin-top: variables.$spacing-1_5;
+  @include mixins.typography(xs);
+  color: variables.$color-neutral-500;
+}

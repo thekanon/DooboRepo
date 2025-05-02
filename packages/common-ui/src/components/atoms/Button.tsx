@@ -1,57 +1,45 @@
-// packages/common-ui/src/components/atoms/Button.tsx
-import React from "react";
+import React, { forwardRef } from "react";
 import classNames from "classnames";
 import styles from "./Button.module.scss";
 
 export type ButtonVariant =
   | "primary"
   | "secondary"
-  | "tertiary"
-  | "danger"
-  | "ghost";
+  | "outline"
+  | "ghost"
+  | "danger";
 export type ButtonSize = "sm" | "md" | "lg";
 
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   /**
-   * 버튼의 색상 변형
-   * @default 'primary'
+   * 버튼 변형
+   * @default primary
    */
   variant?: ButtonVariant;
 
   /**
-   * 버튼의 크기
-   * @default 'md'
+   * 버튼 크기
+   * @default md
    */
   size?: ButtonSize;
 
   /**
-   * 버튼 내부 아이콘 (왼쪽)
-   */
-  leftIcon?: React.ReactNode;
-
-  /**
-   * 버튼 내부 아이콘 (오른쪽)
-   */
-  rightIcon?: React.ReactNode;
-
-  /**
-   * 버튼이 전체 너비를 차지해야 하는지 여부
+   * 버튼의 전체 너비 적용 여부
    * @default false
    */
   fullWidth?: boolean;
 
   /**
-   * 비활성화 상태
+   * 버튼 로딩 상태 표시 여부
    * @default false
    */
-  disabled?: boolean;
+  isLoading?: boolean;
 
   /**
-   * 로딩 상태
-   * @default false
+   * 버튼의 추가 클래스명
    */
-  loading?: boolean;
+  className?: string;
 
   /**
    * 버튼 내용
@@ -59,18 +47,17 @@ export interface ButtonProps
   children: React.ReactNode;
 }
 
-export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   (
     {
       variant = "primary",
       size = "md",
-      leftIcon,
-      rightIcon,
       fullWidth = false,
-      disabled = false,
-      loading = false,
+      isLoading = false,
       className,
+      disabled,
       children,
+      type = "button",
       ...rest
     },
     ref
@@ -80,8 +67,9 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       styles[`button-${variant}`],
       styles[`button-${size}`],
       {
-        [styles["button-full-width"]]: fullWidth,
-        [styles["button-loading"]]: loading,
+        [styles["full-width"]]: fullWidth,
+        [styles.loading]: isLoading,
+        [styles.disabled]: disabled || isLoading,
       },
       className
     );
@@ -90,17 +78,24 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       <button
         ref={ref}
         className={buttonClasses}
-        disabled={disabled || loading}
+        disabled={disabled || isLoading}
+        type={type}
         {...rest}
       >
-        {loading && <span className={styles.loader}></span>}
-        {!loading && leftIcon && (
-          <span className={styles.leftIcon}>{leftIcon}</span>
+        {isLoading && (
+          <span className={styles.loadingIndicator}>
+            <svg
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+              className={styles.spinner}
+            >
+              <circle cx="12" cy="12" r="10" fill="none" strokeWidth="3" />
+            </svg>
+          </span>
         )}
-        <span className={styles.content}>{children}</span>
-        {!loading && rightIcon && (
-          <span className={styles.rightIcon}>{rightIcon}</span>
-        )}
+        <span className={isLoading ? styles.loadingText : undefined}>
+          {children}
+        </span>
       </button>
     );
   }

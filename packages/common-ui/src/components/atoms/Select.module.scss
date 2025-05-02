@@ -1,0 +1,156 @@
+@use "../../scss/variables";
+@use "../../scss/mixins";
+
+.selectWrapper {
+  display: flex;
+  flex-direction: column;
+
+  &.full-width {
+    width: 100%;
+  }
+
+  &.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+
+    .select,
+    .prefix,
+    .arrow {
+      cursor: not-allowed;
+    }
+  }
+}
+
+.label {
+  margin-bottom: variables.$spacing-1_5;
+  @include mixins.typography(sm, medium);
+  color: variables.$color-neutral-700;
+}
+
+.selectContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  @include mixins.border(1, solid, variables.$color-neutral-300);
+  @include mixins.border-radius(md);
+  background-color: white;
+  @include mixins.transition;
+
+  &:hover:not(.disabled) {
+    border-color: variables.$color-neutral-400;
+  }
+
+  &:focus-within:not(.disabled) {
+    border-color: variables.$color-primary-500;
+    box-shadow: 0 0 0 2px rgba(variables.$color-primary-500, 0.2);
+  }
+
+  .select {
+    width: 100%;
+    appearance: none;
+    background: none;
+    border: none;
+    outline: none;
+    font-family: variables.$font-family-sans;
+    color: variables.$color-neutral-900;
+    cursor: pointer;
+
+    &:disabled {
+      cursor: not-allowed;
+    }
+  }
+}
+
+// 화살표 아이콘
+.arrow {
+  position: absolute;
+  right: variables.$spacing-3;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  color: variables.$color-neutral-500;
+}
+
+// 크기 변형
+.select-sm {
+  .selectContainer {
+    height: variables.$spacing-8;
+  }
+
+  .select {
+    @include mixins.typography(xs);
+    padding: 0 variables.$spacing-6 0 variables.$spacing-2;
+  }
+
+  .arrow {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+.select-md {
+  .selectContainer {
+    height: variables.$spacing-10;
+  }
+
+  .select {
+    @include mixins.typography(sm);
+    padding: 0 variables.$spacing-8 0 variables.$spacing-3;
+  }
+
+  .arrow {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.select-lg {
+  .selectContainer {
+    height: variables.$spacing-12;
+  }
+
+  .select {
+    @include mixins.typography(base);
+    padding: 0 variables.$spacing-10 0 variables.$spacing-4;
+  }
+
+  .arrow {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+// 접두사
+.prefix {
+  display: flex;
+  align-items: center;
+  padding-left: variables.$spacing-3;
+  color: variables.$color-neutral-500;
+}
+
+// 에러 상태
+.error {
+  .selectContainer {
+    border-color: variables.$color-error-500 !important;
+
+    &:focus-within {
+      box-shadow: 0 0 0 2px rgba(variables.$color-error-500, 0.2) !important;
+    }
+  }
+}
+
+.errorMessage {
+  margin-top: variables.$spacing-1_5;
+  @include mixins.typography(xs);
+  color: variables.$color-error-500;
+}
+
+.helpText {
+  margin-top: variables.$spacing-1_5;
+  @include mixins.typography(xs);
+  color: variables.$color-neutral-500;
+}
