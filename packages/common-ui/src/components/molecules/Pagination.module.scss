@@ -1,0 +1,138 @@
+@use "../../scss/variables";
+@use "../../scss/mixins";
+
+.pagination {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: variables.$spacing-4;
+  padding: variables.$spacing-2 0;
+
+  &.disabled {
+    opacity: 0.6;
+    pointer-events: none;
+  }
+
+  .list {
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    gap: variables.$spacing-1;
+  }
+
+  .item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: variables.$color-neutral-50;
+    border: variables.$border-width-1 solid variables.$color-neutral-200;
+    border-radius: variables.$border-radius-base;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: variables.$font-family-sans;
+    font-weight: variables.$font-weight-normal;
+
+    &:hover:not(.active):not(.disabled) {
+      background-color: variables.$color-neutral-100;
+      border-color: variables.$color-neutral-300;
+      color: variables.$color-primary-700;
+    }
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px variables.$color-primary-100;
+    }
+
+    &.active {
+      background-color: variables.$color-primary-500;
+      border-color: variables.$color-primary-500;
+      color: white;
+      font-weight: variables.$font-weight-medium;
+    }
+
+    &.disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
+      pointer-events: none;
+    }
+  }
+
+  .ellipsis {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: variables.$color-neutral-500;
+    user-select: none;
+  }
+
+  .pageInfo {
+    color: variables.$color-neutral-600;
+    font-size: variables.$font-size-sm;
+  }
+
+  // 사이즈 변형
+  &.size-sm {
+    font-size: variables.$font-size-xs;
+
+    .button {
+      min-width: 28px;
+      height: 28px;
+      padding: 0 variables.$spacing-1;
+    }
+
+    .pageInfo {
+      font-size: variables.$font-size-xs;
+    }
+  }
+
+  &.size-md {
+    font-size: variables.$font-size-sm;
+
+    .button {
+      min-width: 32px;
+      height: 32px;
+      padding: 0 variables.$spacing-2;
+    }
+
+    .pageInfo {
+      font-size: variables.$font-size-sm;
+    }
+  }
+
+  &.size-lg {
+    font-size: variables.$font-size-base;
+
+    .button {
+      min-width: 40px;
+      height: 40px;
+      padding: 0 variables.$spacing-2;
+    }
+
+    .pageInfo {
+      font-size: variables.$font-size-base;
+    }
+  }
+
+  // 반응형 스타일
+  @media (max-width: variables.$breakpoint-sm) {
+    flex-direction: column;
+    gap: variables.$spacing-2;
+
+    &.size-md, &.size-lg {
+      .button {
+        min-width: 32px;
+        height: 32px;
+        padding: 0 variables.$spacing-1;
+      }
+    }
+  }
+}

@@ -1,0 +1,336 @@
+@use "../../../scss/variables";
+@use "../../../scss/mixins";
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  background-color: variables.$color-backoffice-sidebar;
+  height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  transition: width 0.3s ease;
+  position: relative;
+  z-index: variables.$z-index-docked;
+
+  &.fixed {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+  }
+
+  &.left {
+    left: 0;
+    border-right: variables.$border-width-1 solid
+      variables.$color-backoffice-border;
+  }
+
+  &.right {
+    right: 0;
+    border-left: variables.$border-width-1 solid
+      variables.$color-backoffice-border;
+  }
+
+  &.shadow {
+    box-shadow: variables.$shadow-md;
+  }
+
+  &.bordered {
+    &.left {
+      border-right: variables.$border-width-1 solid
+        variables.$color-backoffice-border;
+    }
+
+    &.right {
+      border-left: variables.$border-width-1 solid
+        variables.$color-backoffice-border;
+    }
+  }
+
+  // 스크롤바 스타일링
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: variables.$color-neutral-300;
+    border-radius: variables.$border-radius-full;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: variables.$color-neutral-400;
+  }
+}
+
+.sidebarContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: variables.$spacing-4;
+}
+
+// 사이드바 헤더 스타일
+.sidebarHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: variables.$spacing-4;
+  border-bottom: variables.$border-width-1 solid
+    variables.$color-backoffice-border;
+
+  .logoContainer {
+    display: flex;
+    align-items: center;
+    gap: variables.$spacing-2;
+    overflow: hidden;
+  }
+
+  .logoIcon {
+    flex-shrink: 0;
+  }
+
+  .logoTitle {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: opacity 0.2s ease;
+    margin-top: variables.$spacing-4;
+  }
+
+  .toggleButton {
+    flex-shrink: 0;
+  }
+}
+
+// 사이드바 섹션 스타일
+.sidebarSection {
+  margin-bottom: variables.$spacing-6;
+
+  .sectionTitle {
+    color: variables.$color-neutral-500;
+    font-size: variables.$font-size-xs;
+    font-weight: variables.$font-weight-semibold;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: variables.$spacing-2;
+    padding: variables.$spacing-2 variables.$spacing-2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: opacity 0.2s ease;
+  }
+
+  .sectionContent {
+    display: flex;
+    flex-direction: column;
+    gap: variables.$spacing-1;
+  }
+}
+
+// 사이드바 네비게이션 아이템 스타일
+.navItem {
+  display: flex;
+  align-items: center;
+  padding: variables.$spacing-2 variables.$spacing-3;
+  border-radius: variables.$border-radius-md;
+  color: variables.$color-neutral-700;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+
+  &:hover {
+    background-color: variables.$color-neutral-100;
+    color: variables.$color-neutral-900;
+  }
+
+  &.active {
+    background-color: variables.$color-primary-50;
+    color: variables.$color-primary-700;
+    font-weight: variables.$font-weight-medium;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 25%;
+      height: 50%;
+      width: 3px;
+      background-color: variables.$color-primary-500;
+      border-radius: 0 variables.$border-radius-full
+        variables.$border-radius-full 0;
+    }
+  }
+
+  &.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  .navIcon {
+    margin-right: variables.$spacing-3;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+  }
+
+  .navLabel {
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: opacity 0.2s ease;
+  }
+
+  .navBadge {
+    margin-left: variables.$spacing-2;
+    flex-shrink: 0;
+  }
+
+  .expandIcon {
+    margin-left: variables.$spacing-2;
+    transition: transform 0.2s ease;
+    flex-shrink: 0;
+
+    &.expanded {
+      transform: rotate(180deg);
+    }
+  }
+}
+
+// 중첩 메뉴 스타일
+.subMenu {
+  margin-left: variables.$spacing-6;
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.3s ease;
+
+  &.expanded {
+    max-height: 500px; // 충분히 큰 값으로 설정
+  }
+}
+
+// 사이드바 푸터 스타일
+.sidebarFooter {
+  padding: variables.$spacing-4;
+  border-top: variables.$border-width-1 solid variables.$color-backoffice-border;
+  margin-top: auto;
+
+  .userProfile {
+    display: flex;
+    align-items: center;
+    gap: variables.$spacing-3;
+
+    .userInfo {
+      flex: 1;
+      min-width: 0;
+
+      .userName {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: variables.$font-weight-medium;
+        color: variables.$color-neutral-900;
+        transition: opacity 0.2s ease;
+      }
+
+      .userRole {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-size: variables.$font-size-xs;
+        color: variables.$color-neutral-500;
+        transition: opacity 0.2s ease;
+      }
+    }
+  }
+}
+
+// 접힌 상태의 사이드바 스타일
+.collapsed {
+  .logoTitle,
+  .sectionTitle,
+  .navLabel,
+  .userInfo {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  .sidebarSection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .sectionTitle {
+      padding: variables.$spacing-2 0;
+    }
+
+    .sectionContent {
+      width: 100%;
+    }
+  }
+
+  .navItem {
+    justify-content: center;
+    padding: variables.$spacing-2;
+
+    .navIcon {
+      margin-right: 0;
+    }
+
+    .navBadge,
+    .expandIcon {
+      display: none;
+    }
+  }
+
+  .subMenu {
+    display: none;
+  }
+
+  .userProfile {
+    justify-content: center;
+
+    .userAvatar {
+      margin-right: 0;
+    }
+  }
+}
+
+// 모바일 대응
+@media (max-width: variables.$breakpoint-md) {
+  .sidebar {
+    position: fixed;
+    transform: translateX(-100%);
+
+    &.right {
+      transform: translateX(100%);
+    }
+
+    &.open {
+      transform: translateX(0);
+    }
+  }
+
+  .backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: variables.$z-index-overlay - 1;
+    display: none;
+
+    &.visible {
+      display: block;
+    }
+  }
+}

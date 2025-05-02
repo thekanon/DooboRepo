@@ -12,12 +12,10 @@ Molecules
 Form Elements: FormField, InputGroup
 Navigation: Breadcrumb, Pagination
 Feedback: Alert, Toast, Modal
-Card: Card, InfoBox
+Card: InfoBox
 
 Organisms
 Composite: DataTable, Form, Sidebar
 Section: Header, Footer
 
-Layouts
-Basic Layouts: DashboardLayout, AuthLayout
-Page Layouts: DataTableLayout, FormLayout
+완료됨

@@ -1,0 +1,105 @@
+@use "../../scss/variables";
+@use "../../scss/mixins";
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: variables.$spacing-2 0;
+  font-size: variables.$font-size-sm;
+  color: variables.$color-neutral-600;
+
+  .list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .item {
+    display: flex;
+    align-items: center;
+    max-width: 100%;
+
+    &.active {
+      font-weight: variables.$font-weight-medium;
+      color: variables.$color-neutral-800;
+
+      .text, .link, .button {
+        color: variables.$color-neutral-800;
+      }
+    }
+
+    &.disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+  }
+
+  .text, .link, .button {
+    display: inline-flex;
+    align-items: center;
+    padding: variables.$spacing-1 variables.$spacing-2;
+    text-decoration: none;
+    color: variables.$color-neutral-600;
+    border-radius: variables.$border-radius-base;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 200px;
+
+    @media (max-width: variables.$breakpoint-sm) {
+      max-width: 120px;
+    }
+  }
+
+  .link, .button {
+    cursor: pointer;
+    background: none;
+    border: none;
+    font-size: inherit;
+    font-family: inherit;
+
+    &:hover {
+      color: variables.$color-primary-600;
+      background-color: variables.$color-primary-50;
+    }
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px variables.$color-primary-100;
+    }
+  }
+
+  .icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: variables.$spacing-1;
+  }
+
+  .separator {
+    display: flex;
+    align-items: center;
+    margin: 0 variables.$spacing-2;
+    color: variables.$color-neutral-400;
+    user-select: none;
+  }
+
+  // 반응형 조정
+  @media (max-width: variables.$breakpoint-sm) {
+    font-size: variables.$font-size-xs;
+
+    .separator {
+      margin: 0 variables.$spacing-1;
+    }
+
+    .text, .link, .button {
+      padding: variables.$spacing-0_5 variables.$spacing-1;
+    }
+  }
+}

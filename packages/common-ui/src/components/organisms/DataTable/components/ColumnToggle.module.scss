@@ -1,0 +1,86 @@
+@use "../../../../scss/variables";
+
+.columnToggleMenu {
+  min-width: 220px;
+  max-width: 320px;
+  padding: variables.$spacing-3;
+}
+
+.columnToggleHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: variables.$spacing-2;
+  padding-bottom: variables.$spacing-2;
+  border-bottom: variables.$border-width-1 solid variables.$color-neutral-200;
+}
+
+.columnToggleTitle {
+  font-weight: variables.$font-weight-semibold;
+  color: variables.$color-neutral-800;
+}
+
+.columnToggleActions {
+  display: flex;
+  gap: variables.$spacing-2;
+}
+
+.columnToggleActionButton {
+  border: none;
+  background: none;
+  color: variables.$color-primary-600;
+  font-size: variables.$font-size-xs;
+  cursor: pointer;
+  padding: variables.$spacing-1;
+  border-radius: variables.$border-radius-sm;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: variables.$color-primary-50;
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px variables.$color-primary-200;
+  }
+}
+
+.columnToggleInfo {
+  font-size: variables.$font-size-xs;
+  color: variables.$color-neutral-600;
+  margin-bottom: variables.$spacing-2;
+}
+
+.columnToggleList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.columnToggleItem {
+  padding: variables.$spacing-1 variables.$spacing-2;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  border-radius: variables.$border-radius-sm;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: variables.$color-neutral-100;
+  }
+}
+
+.columnToggleCheckbox {
+  margin-right: variables.$spacing-2;
+  flex-shrink: 0;
+}
+
+.columnToggleLabel {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+}

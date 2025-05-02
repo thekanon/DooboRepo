@@ -1,0 +1,151 @@
+// Alert.module.scss
+@use "../../scss/variables";
+@use "../../scss/mixins";
+
+.alert {
+  display: flex;
+  align-items: flex-start;
+  padding: variables.$spacing-4;
+  border-radius: variables.$border-radius-md;
+  margin-bottom: variables.$spacing-4;
+  border: variables.$border-width-1 solid transparent;
+  position: relative;
+
+  &.fullWidth {
+    width: 100%;
+  }
+
+  // Variant styles
+  &.variant-info {
+    background-color: variables.$color-info-50;
+    border-color: variables.$color-info-100;
+    color: variables.$color-info-700;
+
+    .icon {
+      color: variables.$color-info-500;
+    }
+  }
+
+  &.variant-success {
+    background-color: variables.$color-success-50;
+    border-color: variables.$color-success-100;
+    color: variables.$color-success-700;
+
+    .icon {
+      color: variables.$color-success-500;
+    }
+  }
+
+  &.variant-warning {
+    background-color: variables.$color-warning-50;
+    border-color: variables.$color-warning-100;
+    color: variables.$color-warning-700;
+
+    .icon {
+      color: variables.$color-warning-500;
+    }
+  }
+
+  &.variant-error {
+    background-color: variables.$color-error-50;
+    border-color: variables.$color-error-100;
+    color: variables.$color-error-700;
+
+    .icon {
+      color: variables.$color-error-500;
+    }
+  }
+
+  // Size styles
+  &.size-sm {
+    padding: variables.$spacing-2 variables.$spacing-3;
+    font-size: variables.$font-size-sm;
+
+    .title {
+      font-size: variables.$font-size-sm;
+    }
+
+    .iconContainer {
+      margin-right: variables.$spacing-2;
+    }
+  }
+
+  &.size-md {
+    padding: variables.$spacing-3 variables.$spacing-4;
+    font-size: variables.$font-size-base;
+
+    .title {
+      font-size: variables.$font-size-base;
+    }
+
+    .iconContainer {
+      margin-right: variables.$spacing-3;
+    }
+  }
+
+  &.size-lg {
+    padding: variables.$spacing-4 variables.$spacing-5;
+    font-size: variables.$font-size-lg;
+
+    .title {
+      font-size: variables.$font-size-lg;
+    }
+
+    .iconContainer {
+      margin-right: variables.$spacing-4;
+    }
+  }
+}
+
+.iconContainer {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.content {
+  flex: 1;
+}
+
+.title {
+  font-weight: variables.$font-weight-semibold;
+  margin-bottom: variables.$spacing-1;
+}
+
+.message {
+  display: inline-block;
+}
+
+.action {
+  margin-top: variables.$spacing-2;
+}
+
+.closeButton {
+  position: absolute;
+  top: variables.$spacing-2;
+  right: variables.$spacing-2;
+  background: transparent;
+  border: none;
+  color: inherit;
+  opacity: 0.6;
+  padding: variables.$spacing-1;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+// 반응형 스타일링
+@media (max-width: variables.$breakpoint-sm) {
+  .alert {
+    flex-direction: column;
+
+    .iconContainer {
+      margin-bottom: variables.$spacing-2;
+      margin-right: 0;
+    }
+  }
+}
