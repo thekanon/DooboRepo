@@ -364,8 +364,11 @@ export default function DashboardPage() {
         <DataTableLayout
           title="최근 등록된 퀴즈"
           actions={
-            <Button variant="primary" size="md" leftIcon={<PlusIcon />}>
-              새 퀴즈 만들기
+            <Button variant="primary" size="md">
+              <div className="flex items-center gap-2">
+                <PlusIcon />
+                <span>새 퀴즈 만들기</span>
+              </div>
             </Button>
           }
           filters={
@@ -451,7 +454,7 @@ export default function DashboardPage() {
                       </td>
                       <td className="p-3">
                         <div className="flex space-x-2">
-                          <Button variant="tertiary" size="sm">
+                          <Button variant="secondary" size="sm">
                             편집
                           </Button>
                           <Button variant="ghost" size="sm">

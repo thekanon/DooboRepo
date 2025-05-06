@@ -1,5 +1,4 @@
-// Toast.tsx - 최종 수정버전
-
+"use client";
 import React, { useEffect, useState } from "react";
 import classNames from "classnames";
 import { createPortal } from "react-dom";

@@ -1,4 +1,4 @@
-import { useEffect, useRef, RefObject, useState } from "react";
+import { useEffect, useRef, RefObject, useState, MutableRefObject } from "react";
 
 type PositionStrategy = "auto" | "left" | "right" | "top" | "bottom" | "center";
 type HorizontalAlign = "left" | "right" | "center";
@@ -50,12 +50,12 @@ interface SmartPositionResult {
   /**
    * 타겟 엘리먼트 참조를 저장할 ref 객체
    */
-  targetRef: RefObject<HTMLElement>;
+  targetRef: RefObject<HTMLElement | null>;
 
   /**
    * 팝업/메뉴 엘리먼트 참조를 저장할 ref 객체
    */
-  popupRef: RefObject<HTMLElement>;
+  popupRef: RefObject<HTMLElement | null>;
 
   /**
    * 계산된 위치 스타일 객체
@@ -108,8 +108,8 @@ export function useSmartPosition(
     onPositionChange,
   } = options;
 
-  const targetRef = useRef<HTMLElement>(null);
-  const popupRef = useRef<HTMLElement>(null);
+  const targetRef = useRef<HTMLElement | null>(null);
+  const popupRef = useRef<HTMLElement | null>(null);
 
   const [currentPosition, setCurrentPosition] = useState<{
     horizontalAlign: HorizontalAlign;

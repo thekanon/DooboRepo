@@ -1,6 +1,6 @@
 @use "../../scss/variables";
 @use "../../scss/mixins";
-
+@use "sass:color";
 .iconButton {
   display: inline-flex;
   align-items: center;
@@ -134,7 +134,7 @@
   }
 
   &:active:not(.disabled) {
-    background-color: darken(variables.$color-error-700, 5%);
+    background: color.adjust(variables.$color-error-700, $lightness: -5%);
   }
 }
 

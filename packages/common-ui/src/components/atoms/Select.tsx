@@ -1,3 +1,4 @@
+"use client";
 import React, { forwardRef, useId, useRef } from "react";
 import classNames from "classnames";
 import styles from "./Select.module.scss";

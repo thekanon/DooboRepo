@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="150" height="40" viewBox="0 0 150 40" xmlns="http://www.w3.org/2000/svg">
+  <!-- 검은 터미널 배경 -->
+  <rect width="150" height="40" fill="#0d0d0d" />
+  <!-- 모노스페이스 & 녹색 텍스트 -->
+  <text x="10" y="26" font-family="Courier New, monospace" font-size="18" fill="#33ff33">
+    quiz-admin&gt;
+  </text>
+</svg>

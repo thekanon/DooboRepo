@@ -1,6 +1,6 @@
 @use "../../scss/variables";
 @use "../../scss/mixins";
-
+@use "sass:color";
 .button {
   display: inline-flex;
   align-items: center;
@@ -115,25 +115,27 @@
   }
 
   &:active:not(.disabled) {
-    background-color: darken(variables.$color-error-700, 5%);
+    background: color.adjust(variables.$color-error-700, $lightness: -5%);
   }
 }
 
 // 로딩 상태
 .loading {
   .loadingText {
-    opacity: 0.7;
-    // margin-left: variables.$spacing-2;
+    opacity: 0;
+    visibility: hidden; // 투명할 뿐만 아니라 공간도 차지하지 않도록
   }
 }
 
 .loadingIndicator {
   position: absolute;
+  top: 50%;
   left: 50%;
-  margin-left: -12px;
+  transform: translate(-50%, -50%); // 중앙 정렬을 위해 transform 사용
   display: inline-flex;
   align-items: center;
-
+  justify-content: center;
+  
   svg {
     width: 16px;
     height: 16px;

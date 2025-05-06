@@ -5,6 +5,7 @@ import React, {
   FormEvent,
   isValidElement,
   cloneElement,
+  ReactElement,
 } from "react";
 import classNames from "classnames";
 import { FormProps, FormSubmitEvent } from "./types";
@@ -17,6 +18,22 @@ import { Alert } from "../../molecules/Alert";
  * 다양한 레이아웃 옵션을 지원하는 폼 컴포넌트입니다.
  * 기존 FormField, Input 등의 컴포넌트와 함께 사용하도록 설계되었습니다.
  */
+
+// Width 타입 정의 (필요한 경우)
+type Width<T> = T | { width: string };
+
+// FormField 컴포넌트용 props 타입 정의
+interface FormFieldProps {
+  name?: string;
+  labelPosition?: "top" | "side" | "inside";
+  labelWidth?: Width<string | number>;
+  disabled?: boolean;
+  readOnly?: boolean;
+  size?: string;
+  error?: string;
+  [key: string]: any;
+}
+
 export const Form = forwardRef<HTMLFormElement, FormProps>(
   (
     {
@@ -157,18 +174,42 @@ export const Form = forwardRef<HTMLFormElement, FormProps>(
         return child;
       }
 
+      // 타입 안전성을 위한 변환
+      const element = child as ReactElement;
+      const childType = element.type as any;
+      const childProps = element.props as FormFieldProps;
+
       // FormField 컴포넌트에 props 전달
-      if (child.type && (child.type as any).displayName === "FormField") {
-        return cloneElement(child, {
-          ...fieldDefaults,
+      if (childType && childType.displayName === "FormField") {
+        // 새로운 props 객체 생성
+        const newProps: FormFieldProps = {
+          ...(fieldDefaults || {}),
           labelPosition: layout === "horizontal" ? "side" : "top",
           labelWidth: layout === "horizontal" ? labelStyle : undefined,
-          disabled: disabled || child.props.disabled,
-          readOnly: readOnly || child.props.readOnly,
-          size: child.props.size || size,
-          error: validationStatus?.errors?.[child.props.name]?.[0],
-          ...child.props,
-        });
+          disabled: disabled || childProps.disabled,
+          readOnly: readOnly || childProps.readOnly,
+          size: childProps.size || size,
+        };
+
+        // name이 있고 validationStatus에 errors가 있는 경우 에러 추가
+        if (
+          childProps.name &&
+          validationStatus?.errors &&
+          typeof validationStatus.errors === "object" &&
+          validationStatus.errors[childProps.name] &&
+          Array.isArray(validationStatus.errors[childProps.name]) &&
+          validationStatus.errors[childProps.name].length > 0
+        ) {
+          newProps.error = validationStatus.errors[childProps.name][0];
+        }
+
+        // 원래 props 병합 (나중에 전달된 props가 우선)
+        const mergedProps = {
+          ...newProps,
+          ...childProps, // 원래 props를 나중에 병합해 우선시함
+        };
+
+        return cloneElement(element, mergedProps);
       }
 
       return child;

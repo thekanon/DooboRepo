@@ -6,7 +6,7 @@
   padding: 0;
 }
 
-// Text variants
+// 텍스트 변형
 .variant-h1 {
   @include mixins.typography(5xl, bold);
   margin-bottom: variables.$spacing-6;
@@ -69,7 +69,12 @@
   display: block;
 }
 
-// Font weights
+// 하단 마진 제거 옵션
+.noMargin {
+  margin-bottom: 0 !important;
+}
+
+// 글꼴 두께
 .weight-thin {
   font-weight: variables.$font-weight-thin;
 }
@@ -98,7 +103,7 @@
   font-weight: variables.$font-weight-extrabold;
 }
 
-// Text alignment
+// 텍스트 정렬
 .align-left {
   text-align: left;
 }
@@ -115,7 +120,7 @@
   text-align: justify;
 }
 
-// Text colors
+// 텍스트 색상
 .color-primary {
   color: variables.$color-primary-500;
 }
@@ -144,7 +149,7 @@
   color: inherit;
 }
 
-// Text decorations
+// 텍스트 장식
 .strikethrough {
   text-decoration: line-through;
 }
@@ -161,7 +166,7 @@
   text-transform: uppercase;
 }
 
-// Truncation
+// 텍스트 잘림
 .truncate {
   white-space: nowrap;
   overflow: hidden;
@@ -177,6 +182,7 @@
   word-break: break-word;
 }
 
+// 수직 중앙 정렬
 .verticalCenter {
   display: inline-flex;
   align-items: center;

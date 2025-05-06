@@ -1,38 +1,50 @@
+// SidebarSection.tsx
 import React from "react";
 import classNames from "classnames";
-import { Text } from "../../../components/atoms/Text";
-import { SidebarSectionProps } from "./types";
+import { Text } from "../../atoms/Text";
 import styles from "./Sidebar.module.scss";
 
-interface SidebarSectionComponentProps extends SidebarSectionProps {
+export interface SidebarSectionProps {
+  /**
+   * 섹션 제목
+   */
+  title?: React.ReactNode;
+
+  /**
+   * 섹션 내용
+   */
+  children: React.ReactNode;
+
+  /**
+   * 추가 클래스명
+   */
+  className?: string;
+
   /**
    * 사이드바가 접힘 상태인지 여부
    */
   isCollapsed?: boolean;
 }
 
-/**
- * 사이드바 섹션 컴포넌트
- *
- * 제목과 내용을 가진 사이드바의 구분 영역입니다.
- */
-export const SidebarSection: React.FC<SidebarSectionComponentProps> = ({
+export const SidebarSection: React.FC<SidebarSectionProps> = ({
   title,
   children,
   className,
   isCollapsed = false,
 }) => {
+  const sectionClasses = classNames(
+    styles.section,
+    {
+      [styles.collapsed]: isCollapsed,
+    },
+    className
+  );
+
   return (
-    <div className={classNames(styles.sidebarSection, className)}>
-      {title && (
+    <div className={sectionClasses}>
+      {title && !isCollapsed && (
         <div className={styles.sectionTitle}>
-          <Text
-            size="xs"
-            weight="semibold"
-            color="muted"
-            transform="uppercase"
-            className={styles.sectionTitleText}
-          >
+          <Text variant="overline" color="secondary" noMargin>
             {title}
           </Text>
         </div>

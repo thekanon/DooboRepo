@@ -1,0 +1,78 @@
+// packages/common-ui/src/layouts/base/AuthLayout/AuthLayout.module.scss
+@use "../../../scss/variables";
+@use "../../../scss/mixins";
+
+.authLayout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
+  background-color: variables.$color-neutral-50;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+
+  &.centered {
+    align-items: center;
+    justify-content: center;
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(variables.$color-neutral-900, 0.2);
+    z-index: 0;
+  }
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  background-color: variables.$color-backoffice-sidebar;
+  border-radius: variables.$border-radius-lg;
+  box-shadow: variables.$shadow-md;
+  padding: variables.$spacing-8;
+  width: 100%;
+  max-width: 400px;
+  margin: variables.$spacing-8 auto;
+
+  @include mixins.respond-to(sm) {
+    margin: variables.$spacing-4;
+    padding: variables.$spacing-6;
+  }
+}
+
+.logo {
+  display: flex;
+  justify-content: center;
+  margin-bottom: variables.$spacing-6;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: variables.$spacing-6;
+}
+
+.title {
+  @include mixins.typography(xl, bold);
+  color: variables.$color-neutral-900;
+  margin-bottom: variables.$spacing-2;
+}
+
+.subtitle {
+  color: variables.$color-neutral-600;
+}
+
+.main {
+  margin-bottom: variables.$spacing-6;
+}
+
+.footer {
+  text-align: center;
+  @include mixins.typography(sm);
+  color: variables.$color-neutral-500;
+}

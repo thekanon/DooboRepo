@@ -690,10 +690,11 @@
     animation: none;
   }
 
-  .dataTableRow,
-  .dataTableResizer,
-  .dataTableSortIcon,
-  li {
+  .dataTable .dataTableRow,
+  .dataTable .dataTableResizer,
+  .dataTable .dataTableSortIcon,
+  .dataTableColumnToggleMenu li {
+
     transition: none;
   }
 }

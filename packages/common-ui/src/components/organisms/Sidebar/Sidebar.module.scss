@@ -223,34 +223,34 @@
   border-top: variables.$border-width-1 solid variables.$color-backoffice-border;
   margin-top: auto;
 
-  .userProfile {
-    display: flex;
-    align-items: center;
-    gap: variables.$spacing-3;
+}
 
-    .userInfo {
-      flex: 1;
-      min-width: 0;
+.userProfile {
+  display: flex;
+  align-items: center;
+  gap: variables.$spacing-3;
+}
+.userInfo {
+  flex: 1;
+  min-width: 0;
+}
 
-      .userName {
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        font-weight: variables.$font-weight-medium;
-        color: variables.$color-neutral-900;
-        transition: opacity 0.2s ease;
-      }
+.userName {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: variables.$font-weight-medium;
+  color: variables.$color-neutral-900;
+  transition: opacity 0.2s ease;
+}
 
-      .userRole {
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        font-size: variables.$font-size-xs;
-        color: variables.$color-neutral-500;
-        transition: opacity 0.2s ease;
-      }
-    }
-  }
+.userRole {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: variables.$font-size-xs;
+  color: variables.$color-neutral-500;
+  transition: opacity 0.2s ease;
 }
 
 // 접힌 상태의 사이드바 스타일
@@ -333,4 +333,24 @@
       display: block;
     }
   }
+}
+.section {
+  margin-bottom: variables.$spacing-4;
+  
+  &.collapsed {
+    margin-bottom: variables.$spacing-2;
+    
+    // 접힌 상태에서는 섹션 간 간격 축소
+    .sectionContent {
+      margin-top: 0;
+    }
+  }
+}
+
+.sectionTitle {
+  padding: variables.$spacing-2 variables.$spacing-4;
+}
+
+.sectionContent {
+  margin-top: variables.$spacing-1;
 }

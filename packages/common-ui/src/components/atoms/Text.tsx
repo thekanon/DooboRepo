@@ -49,78 +49,78 @@ export type TextElement =
 
 export interface TextProps {
   /**
-   * The content to be displayed
+   * 표시할 내용
    */
   children: React.ReactNode;
 
   /**
-   * The variant of the text which determines its size and style
+   * 텍스트의 크기와 스타일을 결정하는 변형
    * @default "body1"
    */
   variant?: TextVariant;
 
   /**
-   * The font weight of the text
+   * 텍스트의 굵기
    * @default "normal"
    */
   weight?: TextWeight;
 
   /**
-   * The color of the text
+   * 텍스트의 색상
    * @default "inherit"
    */
   color?: TextColor;
 
   /**
-   * Text alignment
+   * 텍스트 정렬 방식
    * @default "left"
    */
   align?: TextAlign;
 
   /**
-   * If true, the text will have a line-through style
+   * true일 경우, 텍스트에 취소선 스타일이 적용됨
    * @default false
    */
   strikethrough?: boolean;
 
   /**
-   * If true, the text will be underlined
+   * true일 경우, 텍스트에 밑줄이 적용됨
    * @default false
    */
   underline?: boolean;
 
   /**
-   * If true, the text will be italic
+   * true일 경우, 텍스트가 기울임체로 표시됨
    * @default false
    */
   italic?: boolean;
 
   /**
-   * If true, the text will be displayed in uppercase
+   * true일 경우, 텍스트가 대문자로 표시됨
    * @default false
    */
   uppercase?: boolean;
 
   /**
-   * HTML tag to be used for the text
-   * If not provided, it will be determined based on the variant
+   * 텍스트에 사용할 HTML 태그
+   * 제공되지 않을 경우, variant에 따라 결정됨
    */
   as?: TextElement;
 
   /**
-   * Additional class name
+   * 추가 클래스명
    */
   className?: string;
 
   /**
-   * If true, text will be truncated with ellipsis if it exceeds one line
+   * true일 경우, 텍스트가 한 줄을 초과하면 생략 부호로 잘림
    * @default false
    */
   truncate?: boolean;
 
   /**
-   * Maximum number of lines before truncating with ellipsis
-   * Only applied if truncate is true and lines > 1
+   * 생략 부호로 자르기 전의 최대 줄 수
+   * truncate가 true이고 lines > 1인 경우에만 적용됨
    */
   lines?: number;
 
@@ -131,7 +131,13 @@ export interface TextProps {
   verticalAlign?: "none" | "center";
 
   /**
-   * Additional props for the HTML element
+   * true일 경우, 텍스트의 하단 여백이 제거됨
+   * @default false
+   */
+  noMargin?: boolean;
+
+  /**
+   * HTML 요소에 대한 추가 속성
    */
   [key: string]: any;
 }
@@ -153,11 +159,12 @@ export const Text = forwardRef<HTMLElement, TextProps>(
       className,
       truncate = false,
       lines,
+      noMargin = false,
       ...rest
     },
     ref
   ) => {
-    // Determine the appropriate HTML element based on variant if not specified
+    // variant를 기반으로 적절한 HTML 요소 결정 (지정되지 않은 경우)
     const getDefaultElement = (): TextElement => {
       if (variant.startsWith("h")) {
         return variant as TextElement;
@@ -194,6 +201,7 @@ export const Text = forwardRef<HTMLElement, TextProps>(
         [styles.truncate]: truncate && !lines,
         [styles.multiLineTruncate]: truncate && lines && lines > 1,
         [styles.verticalCenter]: verticalAlign === "center",
+        [styles.noMargin]: noMargin,
       },
       className
     );

@@ -107,6 +107,7 @@ export type {
 
 export { Icon } from "./components/atoms/Icon";
 export type { IconProps, IconSize, IconColor } from "./components/atoms/Icon";
+export { iconPaths } from "./lib/icon";
 
 export { Avatar } from "./components/atoms/Avatar";
 export type {
@@ -230,3 +231,6 @@ export type { DashboardLayoutProps } from "./layouts/base/DashboardLayout";
 
 export { DataTableLayout } from "./layouts/page/DataTableLayout";
 export type { DataTableLayoutProps } from "./layouts/page/DataTableLayout";
+
+export { AuthLayout } from './layouts/base/AuthLayout/AuthLayout';
+export type { AuthLayoutProps } from './layouts/base/AuthLayout/AuthLayout';

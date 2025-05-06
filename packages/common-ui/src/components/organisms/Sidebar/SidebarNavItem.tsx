@@ -1,3 +1,4 @@
+"use client";
 import React, { useState, useCallback } from "react";
 import classNames from "classnames";
 import { Text } from "../../../components/atoms/Text";
@@ -84,7 +85,7 @@ export const SidebarNavItem: React.FC<SidebarNavItemComponentProps> = ({
         {icon && <span className={styles.navIcon}>{icon}</span>}
 
         <span className={styles.navLabel}>
-          <Text size="sm" color={isActive ? "primary" : "default"}>
+          <Text size="sm" color={isActive ? "primary" : "default"} noMargin>
             {label}
           </Text>
         </span>

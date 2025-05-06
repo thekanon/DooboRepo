@@ -1,3 +1,4 @@
+"use client";
 import { useState, useEffect, useCallback, FormEvent } from "react";
 import { UseFormReturn } from "./types";
 

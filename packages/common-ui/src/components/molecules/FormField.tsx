@@ -54,11 +54,20 @@ export interface FormFieldProps {
    * 인라인 스타일 객체
    */
   style?: React.CSSProperties;
-
   /**
    * 필드 이름 (폼 상태 관리에 사용)
    */
   name?: string;
+}
+
+// 자식 요소에 대한 props 타입 정의
+interface ChildProps {
+  id?: string;
+  disabled?: boolean;
+  "aria-invalid"?: boolean;
+  "aria-describedby"?: string;
+  error?: any;
+  [key: string]: any;
 }
 
 export const FormField: React.FC<FormFieldProps> = ({
@@ -94,23 +103,38 @@ export const FormField: React.FC<FormFieldProps> = ({
   // 자식 요소에 id가 있는지 확인
   let childId: string | undefined;
   React.Children.forEach(children, (child) => {
-    if (React.isValidElement(child) && child.props.id) {
-      childId = child.props.id;
+    if (
+      React.isValidElement(child) &&
+      typeof child.props === "object" &&
+      child.props &&
+      "id" in child.props
+    ) {
+      childId = (child.props as ChildProps).id;
     }
   });
 
   // 자식 요소에 에러와 비활성화 상태를 전달
   const enhancedChildren = React.Children.map(children, (child) => {
     if (React.isValidElement(child)) {
-      const childProps = {
-        ...child.props,
-        disabled: disabled || child.props.disabled,
-        "aria-invalid": !!error || child.props["aria-invalid"],
-        "aria-describedby": error ? `${childId}-error` : undefined,
+      // props에 대한 타입 단언
+      const originalProps = child.props as ChildProps;
+
+      // 객체 타입 체크 후 스프레드 연산자 사용
+      const childProps: ChildProps = {
+        ...originalProps,
+        disabled:
+          disabled ||
+          (typeof originalProps === "object" && originalProps.disabled),
+        "aria-invalid":
+          !!error ||
+          (typeof originalProps === "object" && originalProps["aria-invalid"]),
+        "aria-describedby": error && childId ? `${childId}-error` : undefined,
       };
 
       // 에러 메시지는 FormField에서만 표시하기 위해 전달하지 않음
-      delete childProps.error;
+      if (typeof childProps === "object") {
+        delete childProps.error;
+      }
 
       return React.cloneElement(child, childProps);
     }
